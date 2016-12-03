@@ -8,13 +8,13 @@ namespace edu.ksu.cis.masaaki
 {
     public class Customer
     {
-        private string firstName;
-        private string lastName;
+        public string firstName;
+        public string lastName;
         public string userName;
         public string password;
-        private string email;
-        private string address;
-        private string phoneNumber;
+        public string email;
+        public string address;
+        public string phoneNumber;
 
         private List<Transaction> pastTransactions;
         private List<SubTransaction> currentCart;

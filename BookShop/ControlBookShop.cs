@@ -59,6 +59,48 @@ namespace edu.ksu.cis.masaaki
                 }
             }
             throw new BookShopException("Customer does not exist.");
-        }  
+        }
+
+        public void logoutCustomer()
+        {
+            if (LoggedinCustomer != null)
+            {
+                LoggedinCustomer = null;
+            }
+            else
+            {
+                throw new BookShopException("There is no cutomer logged in.");
+            }
+        }
+
+        public void addNewCustomer()
+        {
+            
+        }
+
+        public void editCustomerInformation(ref CustomerDialog customerDialog)
+        {
+            if (LoggedinCustomer != null)
+            {
+                customerDialog.FirstName = LoggedinCustomer.firstName;
+                customerDialog.LastName = LoggedinCustomer.lastName;
+                customerDialog.UserName = LoggedinCustomer.userName;
+                customerDialog.Password = LoggedinCustomer.phoneNumber;
+                customerDialog.EMailAddress = LoggedinCustomer.email;
+                customerDialog.Address = LoggedinCustomer.address;
+                customerDialog.TelephoneNumber = LoggedinCustomer.phoneNumber;
+            }
+        }
+
+        public void addEditedCustomer(ref CustomerDialog customerDialog)
+        {
+            LoggedinCustomer.firstName = customerDialog.FirstName ;
+            LoggedinCustomer.lastName = customerDialog.LastName ;
+            LoggedinCustomer.userName = customerDialog.UserName ;
+            LoggedinCustomer.phoneNumber = customerDialog.Password ;
+            customerDialog.EMailAddress = LoggedinCustomer.email;
+            LoggedinCustomer.address = customerDialog.Address;
+            LoggedinCustomer.phoneNumber = customerDialog.TelephoneNumber;
+        }
     }
 }

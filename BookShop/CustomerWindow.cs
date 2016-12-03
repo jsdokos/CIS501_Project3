@@ -89,11 +89,22 @@ namespace edu.ksu.cis.masaaki
             try
             {
                 // throw exception if the customer id is already registered
+
+                foreach (Customer cust in BookShopControl.listOfCustomers)
+                {
+                    if (customerDialog.UserName.Equals(cust.userName))
+                    {
+                        throw new BookShopException("User has already been registered.");
+                    }
+                }
                 // XXX Register Button event handler
                 customerDialog.ClearDisplayItems();
                 if (customerDialog.Display() == DialogReturn.Cancel) return;
                 // XXX pick up information from customerDialog by calling its properties
                 // and register a new customer
+                if (customerDialog.UserName != "")
+                    BookShopControl.listOfCustomers.Add(new Customer(customerDialog.FirstName, customerDialog.LastName, customerDialog.UserName,
+                    customerDialog.Password, customerDialog.EMailAddress, customerDialog.Address, customerDialog.TelephoneNumber));
             }
             catch (BookShopException bsex)
             {
@@ -104,9 +115,11 @@ namespace edu.ksu.cis.masaaki
         private void bnEditSelfInfo_Click(object sender, EventArgs e)
         {
             // XXX Edit Self Info button event handler
-
+            BookShopControl.editCustomerInformation(ref customerDialog);
             if (customerDialog.Display() == DialogReturn.Cancel) return;
             // XXX Done button is pressed
+            if (customerDialog.Display() == DialogReturn.Done)
+                BookShopControl.addEditedCustomer(ref customerDialog);
         }
 
         private void bnBook_Click(object sender, EventArgs e)
@@ -264,7 +277,8 @@ namespace edu.ksu.cis.masaaki
             // XXX Logout  button event handler
             try
             {
-
+                BookShopControl.logoutCustomer();
+                lbLoggedinCustomer.Text = "Loggedin Customer : (none)";
             }
             catch (BookShopException ex)
             {
