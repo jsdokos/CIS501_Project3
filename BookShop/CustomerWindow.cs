@@ -34,7 +34,7 @@ namespace edu.ksu.cis.masaaki
         {
             this.BookShopControl = BookShopControl;
             InitializeComponent();
-            
+
         }
 
         // XXX You may add overriding constructors (constructors with different set of arguments).
@@ -57,17 +57,32 @@ namespace edu.ksu.cis.masaaki
         private void bnLogin_Click(object sender, EventArgs e)
         {
             try
-            {  // throw exception if the customer is not found
+            {
+                // throw exception if the customer is not found
                 // XXX Login Button event handler
                 // First, you may want to check if anyone is logged in
+                if (BookShopControl.LoggedinCustomer != null)
+                    throw new BookShopException("Customer is already logged in");
+
                 if (loginDialog.Display() == DialogReturn.Cancel) return;
                 // XXX Login Button is pressed
+                Customer loggedInCustomer = BookShopControl.findCustomerLogin(loginDialog.UserName, loginDialog.Password);
+
+                if (loggedInCustomer == null)
+                {
+                    throw new BookShopException("Customer does not exist.");
+                }
+                else
+                {
+                    lbLoggedinCustomer.Text = "Loggedin Customer : (" + loggedInCustomer.userName + ")";
+                }
+
             }
-            catch(BookShopException bsex)
+            catch (BookShopException bsex)
             {
                 MessageBox.Show(this, bsex.ErrorMessage);
             }
-}
+        }
 
         private void bnAddCustomer_Click(object sender, EventArgs e)
         {
@@ -77,8 +92,8 @@ namespace edu.ksu.cis.masaaki
                 // XXX Register Button event handler
                 customerDialog.ClearDisplayItems();
                 if (customerDialog.Display() == DialogReturn.Cancel) return;
-                    // XXX pick up information from customerDialog by calling its properties
-                    // and register a new customer
+                // XXX pick up information from customerDialog by calling its properties
+                // and register a new customer
             }
             catch (BookShopException bsex)
             {
@@ -97,20 +112,37 @@ namespace edu.ksu.cis.masaaki
         private void bnBook_Click(object sender, EventArgs e)
         {
             // XXX List Books buton is pressed
-            
+
             while (true)
-            { 
+            {
                 try
-                {  // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
+                {
+                    // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
                     listBooksDialog.ClearDisplayItems();
-                    listBooksDialog.AddDisplayItems(BookShopControl.listOfBooks); // XXX null is a dummy argument
+                    // XXX null is a dummy argument
+
+                    foreach (Book displayBook in BookShopControl.listOfBooks)
+                    {
+                        listBooksDialog.AddDisplayItems(displayBook.ToString());
+                    }
+
+                    //listBooksDialog.AddDisplayItems(BookShopControl.listOfBooks.ToArray().ToString());
+
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
+                    bookInformationDialog.BookTitle = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].name;
+                    bookInformationDialog.Author = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].author;
+                    bookInformationDialog.Publisher =
+                        BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].publisher;
+                    bookInformationDialog.ISBN = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn;
+                    bookInformationDialog.Date = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].date;
+                    bookInformationDialog.Price = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].price;
+                    bookInformationDialog.Stock = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].stock;
 
                     switch (bookInformationDialog.Display())
                     {
                         case DialogReturn.AddToCart: // Add to Cart
-                           // XXX
+                            // XXX
                             continue;
 
                         case DialogReturn.AddToWishList: // Add to Wishlist
@@ -120,7 +152,8 @@ namespace edu.ksu.cis.masaaki
 
                         case DialogReturn.Done: // cancel
                             continue;
-                        default: return;
+                        default:
+                            return;
                     }
                 }
                 catch (BookShopException bsex)
@@ -134,13 +167,14 @@ namespace edu.ksu.cis.masaaki
         private void bnShowWishlist_Click(object sender, EventArgs e)
         {
             // XXX Show WishList Button event handler
-          
+
             while (true)
             {
                 try
-                { // to capture an excepton by SelectedItem/SelectedIndex of wishListDialog
+                {
+                    // to capture an excepton by SelectedItem/SelectedIndex of wishListDialog
                     wishListDialog.ClearDisplayItems();
-                    wishListDialog.AddDisplayItems(null);  // XXX null is a dummy argument
+                    wishListDialog.AddDisplayItems(null); // XXX null is a dummy argument
                     if (wishListDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
                     //XXX 
@@ -158,7 +192,7 @@ namespace edu.ksu.cis.masaaki
                             continue;
                     }
                 }
-                catch(BookShopException bsex)
+                catch (BookShopException bsex)
                 {
                     MessageBox.Show(this, bsex.ErrorMessage);
                     continue;
@@ -168,24 +202,25 @@ namespace edu.ksu.cis.masaaki
 
         private void bnShowCart_Click(object sender, EventArgs e)
         {
-           // XXX Show Cart Button event handler
+            // XXX Show Cart Button event handler
             while (true)
             {
                 try
-                {  // to capture an exception from SelectedIndex/SelectedItem of carDisplay
+                {
+                    // to capture an exception from SelectedIndex/SelectedItem of carDisplay
                     cartDialog.ClearDisplayItems();
                     cartDialog.AddDisplayItems(null); // null is a dummy argument
                     switch (cartDialog.Display())
                     {
-                        case DialogReturn.CheckOut:  // check out
+                        case DialogReturn.CheckOut: // check out
                             // XXX
 
                             return;
                         case DialogReturn.ReturnBook: // remove a book
-                               // XXX
+                            // XXX
 
-                                continue;
-                        
+                            continue;
+
                         case DialogReturn.Done: // cancel
                             return;
                     }
@@ -203,20 +238,21 @@ namespace edu.ksu.cis.masaaki
             // XXX Transaction History button handler
             while (true)
             {
-                
+
                 try
-                {  // to capture an exception from SelectedIndex/SelectedItem of listTransactionHistoryDialog
+                {
+                    // to capture an exception from SelectedIndex/SelectedItem of listTransactionHistoryDialog
                     listTransactionHistoryDialog.ClearDisplayItems();
                     listTransactionHistoryDialog.AddDisplayItems(null); // null is a dummy argument
                     if (listTransactionHistoryDialog.Display() == DialogReturn.Done) return;
                     // Select is pressed
-                    
+
 
                     showTransactionDialog.ClearDisplayItems();
                     showTransactionDialog.AddDisplayItems(null); // null is a dummy argument
                     showTransactionDialog.ShowDialog();
                 }
-                catch(BookShopException bsex)
+                catch (BookShopException bsex)
                 {
                     MessageBox.Show(this, bsex.ErrorMessage);
                 }
@@ -226,7 +262,16 @@ namespace edu.ksu.cis.masaaki
         private void bnLogout_Click(object sender, EventArgs e)
         {
             // XXX Logout  button event handler
-         
+            try
+            {
+
+            }
+            catch (BookShopException ex)
+            {
+                MessageBox.Show(this, ex.ErrorMessage);
+                throw;
+            }
         }
+
     }
 }

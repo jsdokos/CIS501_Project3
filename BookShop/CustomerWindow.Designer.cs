@@ -124,7 +124,7 @@
             this.lbLoggedinCustomer.AutoSize = true;
             this.lbLoggedinCustomer.Location = new System.Drawing.Point(83, 25);
             this.lbLoggedinCustomer.Name = "lbLoggedinCustomer";
-            this.lbLoggedinCustomer.Size = new System.Drawing.Size(0, 13);
+            this.lbLoggedinCustomer.Size = new System.Drawing.Size(137, 13);
             this.lbLoggedinCustomer.TabIndex = 34;
             this.lbLoggedinCustomer.Text = "Loggedin Customer : (none)";
             // 

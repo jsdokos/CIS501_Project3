@@ -26,5 +26,18 @@ namespace edu.ksu.cis.masaaki
             this.date = date;
             this.stock = stock;
         }
+
+        public override string ToString()
+        {
+            StringBuilder st = new StringBuilder();
+            st.Append(name + " ");
+            st.Append(author + " ");
+            st.Append(publisher + " ");
+            st.Append(isbn + " ");
+            st.Append(price + " ");
+            st.Append(stock + " ");
+
+            return st.ToString();
+        }
     }
 }

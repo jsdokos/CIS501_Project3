@@ -28,6 +28,7 @@ namespace edu.ksu.cis.masaaki
         {
             // XXX You may change the contructors of StaffWindow and CustomerWindow to take
             // some arguments
+            //ControlShop.listOfCustomers.Add(new Customer("Jacob", "Dokos"));
             staffWindow = new StaffWindow(ref ControlShop);
             staffWindow.StartPosition = FormStartPosition.Manual;
             staffWindow.Location = new Point(600, 100);
@@ -70,6 +71,7 @@ namespace edu.ksu.cis.masaaki
         void initial_Load()
         {
             //temporary variables
+            //TODO change this to work directly with the class
             List<Customer> listOfCustomers = new List<Customer>();
             List<Book> listOfBooks = new List<Book>();
             List<Transaction> listOfPendingTransactions = new List<Transaction>();
@@ -105,11 +107,12 @@ namespace edu.ksu.cis.masaaki
                                     decimal price = getDecimal(words[5]);
                                     int stock = getInt(words[7]);
                                     // XXX use words[1]~words[4], price, words[6], and stock to register a book
-                                    listOfBooks.Add(new Book(words[1], words[2], words[3], words[4], price, words[6], stock));
+                                    ControlShop.listOfBooks.Add(new Book(words[1], words[2], words[3], words[4], price, words[6], stock));
                                     break;
                                 case "AddCustomer":
                                     // XXX use words[1]~words[7] to register a customer
-                                    listOfCustomers.Add(new Customer(words[1], words[2], words[3], words[4], words[5], words[6], words[7]));
+                                    ControlShop.listOfCustomers.Add(new Customer(words[1], words[2], words[3], words[4], words[5], words[6], words[7]));
+                                    //ControlShop.addCustomerTodictionary(words[3], );
                                     break;
                                 case "Login":
                                     // XXX use words[1] and words[2] to login a customer
@@ -145,7 +148,7 @@ namespace edu.ksu.cis.masaaki
                 }
                 
             }
-            ControlShop = new ControlBookShop(listOfCustomers, listOfBooks, listOfPendingTransactions, listOfCompleteTransactions);
+            //ControlShop.updateObject(listOfCustomers, listOfBooks, listOfPendingTransactions, listOfCompleteTransactions);
         }
 
         void dispatchWindows()

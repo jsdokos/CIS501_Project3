@@ -10,8 +10,8 @@ namespace edu.ksu.cis.masaaki
     {
         private string firstName;
         private string lastName;
-        private string userName;
-        private string password;
+        public string userName;
+        public string password;
         private string email;
         private string address;
         private string phoneNumber;
@@ -32,6 +32,17 @@ namespace edu.ksu.cis.masaaki
             this.email = email;
             this.address = address;
             this.phoneNumber = phoneNumber;
+        }
+
+        public Customer(string firstName, string lastName)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.userName = "jsdokos";
+            this.password = "jd";
+            this.email = "jsdokos@dokos.net";
+            this.address = "123 Fake street, olathe ks";
+            this.phoneNumber = "9138290400";
         }
 
     }
