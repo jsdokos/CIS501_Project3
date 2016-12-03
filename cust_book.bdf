@@ -1,7 +1,7 @@
 AddCustomer# Albert# Eddie#  ealbert#   ae#   ealbert@gmail.com#  7911, Sacramento, CA, 66633# 497033274##
 AddCustomer# Anka# Paul# panka# ap# panka@ksu.edu#	6557, Portland, OL, 24536#	689202997##
 AddCustomer# Barrault# Jean-Louis # bjlouis #	bjl # 	bjlouis@yahoo.com # 	4951, Seattle, WA, 64366# 	863686873##
-AddCustomer# Beymer# Richard # 	rbeymert# br#	rbeymert@gmail.com # 	2219, San Jose, CA, 95188#	878156077##
+AddCustomer# Beymer# # Richard # 	rbeymert# br#	rbeymert@gmail.com # 	2219, San Jose, CA, 95188#	878156077##
 AddCustomer# Burton# Richard # rburton#	br# 	rburton@ksu.edu#	4949, Milwaukee, WI, 94407# 	985854286##
 AddCustomer# Buttner# Walfgang# wbuttner# wb#  wbuttner@yahoo.co.jp# 	4562, New Orleans, LA, 98941# 	976695747##
 AddCustomer# Buttons# Red# rbuttons# 	br# 	aileemb@ksu.edu#	2505, Richmond, VA, 46635# 	344039363##
@@ -26,27 +26,5 @@ AddBook# The Girl on the Train# Paula Hawkins# Riverhead Books# 978-1594633669#1
 AddBook# What If?: Serious Scientific Answers to Absurd Hypothetical Questions# Randall Munroe# Houghton Mifflin Harcourt# 978-0544272996#12.57# September 2, 2014#68##
 AddBook# Essentialism: The Disciplined Pursuit of Less# Greg McKeown# Crown Businesst# 978-0804137386#17.50# April 15, 2014#53##
 AddBook# Steve Jobs# Walter Isaacson# Simon & Schuster# 978-1451648539#19.65#October 24, 2011#246##
-Login#apple#sj##
-AddBookToWishList#978-1250056948##
-AddBookToWishList#978-1476746586##
-AddBookToWishList#978-1451648539##
-AddBookToCart#978-1250056948##
-AddBookToCart#978-1594633669##
-CheckOut##
-AddBookToCart#978-1250056948##
-AddBookToCart#978-1594633669##
-AddBookToCart#978-0062316868##
-CheckOut##
-AddBookToCart#978-1594633669##
-AddBookToCart#978-1250056948##
-AddBookToCart#978-1476749082##
-AddBookToCart#978-1250056948##
-CheckOut##
-ProcessPendingTransaction#1##
-AddBookToCart#978-1594633669##
-AddBookToCart#978-1250056948##
-AddBookToCart#978-1476749082##
-AddBookToCart#978-1250056948##
-AddBookToCart#978-1476749082##
 
 

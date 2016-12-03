@@ -45,12 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Book.cs" />
     <Compile Include="BookShop.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BookShop.Designer.cs">
       <DependentUpon>BookShop.cs</DependentUpon>
     </Compile>
+    <Compile Include="ControlBookShop.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="CustomerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +68,8 @@
     <Compile Include="StaffWindow.Designer.cs">
       <DependentUpon>StaffWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="SubTransaction.cs" />
+    <Compile Include="Transaction.cs" />
     <EmbeddedResource Include="BookShop.resx">
       <DependentUpon>BookShop.cs</DependentUpon>
     </EmbeddedResource>

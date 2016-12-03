@@ -23,10 +23,18 @@ namespace edu.ksu.cis.masaaki
         BookInWishListDialog bookInWishListDialog;
         ListTransactionHistoryDialog listTransactionHistoryDialog;
         ShowTransactionDialog showTransactionDialog;
+        ControlBookShop BookShopControl;
 
         public CustomerWindow()
         {
             InitializeComponent();
+        }
+
+        public CustomerWindow(ref ControlBookShop BookShopControl)
+        {
+            this.BookShopControl = BookShopControl;
+            InitializeComponent();
+            
         }
 
         // XXX You may add overriding constructors (constructors with different set of arguments).
@@ -95,7 +103,7 @@ namespace edu.ksu.cis.masaaki
                 try
                 {  // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
                     listBooksDialog.ClearDisplayItems();
-                    listBooksDialog.AddDisplayItems(null); // XXX null is a dummy argument
+                    listBooksDialog.AddDisplayItems(BookShopControl.listOfBooks); // XXX null is a dummy argument
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
 

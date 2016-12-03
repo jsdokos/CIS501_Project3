@@ -16,8 +16,10 @@ namespace edu.ksu.cis.masaaki
     {
         StaffWindow staffWindow;
         CustomerWindow customerWindow;
+
+        ControlBookShop ControlShop = new ControlBookShop();
         // XXX You can add more fields
-       
+
         public BookShop()
         {
             InitializeComponent();
@@ -26,10 +28,10 @@ namespace edu.ksu.cis.masaaki
         {
             // XXX You may change the contructors of StaffWindow and CustomerWindow to take
             // some arguments
-            staffWindow = new StaffWindow();
+            staffWindow = new StaffWindow(ref ControlShop);
             staffWindow.StartPosition = FormStartPosition.Manual;
             staffWindow.Location = new Point(600, 100);
-            customerWindow = new CustomerWindow();
+            customerWindow = new CustomerWindow(ref ControlShop);
             customerWindow.StartPosition = FormStartPosition.Manual;
             customerWindow.Location = new Point(100, 100);    
         }
@@ -67,7 +69,14 @@ namespace edu.ksu.cis.masaaki
 
         void initial_Load()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            //temporary variables
+            List<Customer> listOfCustomers = new List<Customer>();
+            List<Book> listOfBooks = new List<Book>();
+            List<Transaction> listOfPendingTransactions = new List<Transaction>();
+            List<Transaction> listOfCompleteTransactions = new List<Transaction>();
+
+
+        OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "BookStore Data Files|*.bdf";
             openFileDialog.InitialDirectory = Application.StartupPath;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -96,15 +105,15 @@ namespace edu.ksu.cis.masaaki
                                     decimal price = getDecimal(words[5]);
                                     int stock = getInt(words[7]);
                                     // XXX use words[1]~words[4], price, words[6], and stock to register a book
-
+                                    listOfBooks.Add(new Book(words[1], words[2], words[3], words[4], price, words[6], stock));
                                     break;
                                 case "AddCustomer":
                                     // XXX use words[1]~words[7] to register a customer
-
+                                    listOfCustomers.Add(new Customer(words[1], words[2], words[3], words[4], words[5], words[6], words[7]));
                                     break;
                                 case "Login":
                                     // XXX use words[1] and words[2] to login a customer
-
+                                    //TODO implement login Dictionary?
                                     break;
                                 case "AddBookToWishList":
                                     // XXX use words[1] (ISBN) to register the book in the current customer's wishlist
@@ -136,6 +145,7 @@ namespace edu.ksu.cis.masaaki
                 }
                 
             }
+            ControlShop = new ControlBookShop(listOfCustomers, listOfBooks, listOfPendingTransactions, listOfCompleteTransactions);
         }
 
         void dispatchWindows()

@@ -22,9 +22,16 @@ namespace edu.ksu.cis.masaaki
         ShowCompleteTransactionDialog showCompleteTransactionDialog;
         ListPendingTransactionsDialog listPendingTransactionsDialog;
         ShowPendingTransactionDialog showPendingTransactionDialog;
+        ControlBookShop BookShopControl;
 
         public StaffWindow()
         {
+            InitializeComponent();
+        }
+
+        public StaffWindow(ref ControlBookShop BookShopControl)
+        {
+            this.BookShopControl = BookShopControl;
             InitializeComponent();
         }
 
