@@ -238,11 +238,11 @@ namespace edu.ksu.cis.masaaki
 
             if (!isCustomerLoggedIn)
             {
-                throw new BookShopException("You are not logged in.");
+                throw new NullReferenceException("You are not logged in.");
             }
             if (LoggedinCustomer.currentCart.subTransactionCount <= 0)
             {
-                throw new BookShopException("There are no items in your cart.");
+                throw new NullReferenceException("There are no items in your cart.");
             }
             for (int i = 0; i < LoggedinCustomer.currentCart.subTransactionCount; i++)
             {
@@ -252,6 +252,23 @@ namespace edu.ksu.cis.masaaki
             }
             cart.AddDisplayItems("=======================================================");
             cart.AddDisplayItems("Total Price : " + LoggedinCustomer.currentCart.totalPrice);
+        }
+
+        public void showPastCartInformation(ref ShowTransactionDialog cart, Transaction tran)
+        {
+            if (!isCustomerLoggedIn)
+            {
+                throw new NullReferenceException("You are not logged in.");
+            }
+
+            for (int i = 0; i < tran.subTransactionCount; i++)
+            {
+                cart.AddDisplayItems("\"" + tran.itemsPurchased[i].purchaseBook.name + "\" BY " +
+                   tran.itemsPurchased[i].purchaseBook.author + " " + tran.itemsPurchased[i].numberPurchased + "   $"
+                    + tran.itemsPurchased[i].subTransactionPrice);
+            }
+            cart.AddDisplayItems("=======================================================");
+            cart.AddDisplayItems("Total Price : " + tran.totalPrice);
         }
 
         public void checkOutCustomer()

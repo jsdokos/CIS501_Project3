@@ -57,6 +57,16 @@ namespace edu.ksu.cis.masaaki
             totalPrice += bookToAdd.price*numberToAdd;
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (SubTransaction sub in itemsPurchased)
+            {
+                sb.Append(sub.purchaseBook.name + "(" + sub.numberPurchased + ") ");
+            }
+            return sb.ToString();
+        }
+
         public void removeSubTransaction(Book bookToRemove, int numberToRemove)
         {
             SubTransaction temp = null;
@@ -119,4 +129,5 @@ namespace edu.ksu.cis.masaaki
             }
             throw new BookShopException("Unable to find the book you want to remove. Please try again.");
         }
+    }
 }

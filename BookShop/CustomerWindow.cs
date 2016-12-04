@@ -302,7 +302,7 @@ namespace edu.ksu.cis.masaaki
                             return;
                         case DialogReturn.ReturnBook: // remove a book
                             // XXX
-                            BookShopControl.removeBookFromCustomerCart(BookShopControl.findBookByISBN());
+                            //BookShopControl.removeBookFromCustomerCart(); TODO implement this
                             continue;
 
                         case DialogReturn.Done: // cancel
@@ -317,7 +317,7 @@ namespace edu.ksu.cis.masaaki
                 catch (NullReferenceException nex)
                 {
                     //throw new BookShopException("There are no items on your wishlist.");
-                    //TODO: Bug when pressing button when not logged in
+                    MessageBox.Show(this, nex.Message);
                     return;
                 }
             }
@@ -328,23 +328,37 @@ namespace edu.ksu.cis.masaaki
             // XXX Transaction History button handler
             while (true)
             {
-
+                if (BookShopControl.LoggedinCustomer.pastTransactions.Count <= 0)
+                {
+                    throw new NullReferenceException("There are no past transactions.");
+                }
                 try
                 {
                     // to capture an exception from SelectedIndex/SelectedItem of listTransactionHistoryDialog
                     listTransactionHistoryDialog.ClearDisplayItems();
-                    listTransactionHistoryDialog.AddDisplayItems(null); // null is a dummy argument
+                    //listTransactionHistoryDialog.AddDisplayItems(null); // null is a dummy argument
+
+                    foreach (Transaction tran in BookShopControl.LoggedinCustomer.pastTransactions)
+                    {
+                        listTransactionHistoryDialog.AddDisplayItems(tran.ToString());
+                    }
                     if (listTransactionHistoryDialog.Display() == DialogReturn.Done) return;
                     // Select is pressed
 
 
                     showTransactionDialog.ClearDisplayItems();
-                    showTransactionDialog.AddDisplayItems(null); // null is a dummy argument
+                    //showTransactionDialog.AddDisplayItems(null); // null is a dummy argument
+                    BookShopControl.showPastCartInformation(ref showTransactionDialog, BookShopControl.LoggedinCustomer.pastTransactions[listTransactionHistoryDialog.SelectedIndex]);
                     showTransactionDialog.ShowDialog();
                 }
                 catch (BookShopException bsex)
                 {
                     MessageBox.Show(this, bsex.ErrorMessage);
+                }
+                catch (NullReferenceException nex)
+                {
+                    MessageBox.Show(this, nex.Message);
+                    return;
                 }
             }
         }
