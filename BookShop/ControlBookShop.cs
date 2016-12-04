@@ -66,6 +66,7 @@ namespace edu.ksu.cis.masaaki
                 if (cust.userName.Equals(user) && cust.password.Equals(pass))
                 {
                     LoggedinCustomer = cust;
+
                     return cust;
                 }
             }
