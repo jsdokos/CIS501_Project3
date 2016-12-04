@@ -152,6 +152,18 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
+        public void removeBookFromCustomerCart(string isbn)
+        {
+            if (isCustomerLoggedIn)
+            {
+                LoggedinCustomer.removeBookFromCart(findBookByISBN(isbn));
+            }
+            else
+            {
+                throw new BookShopException("There is no customer logged in currently.");
+            }
+        }
+
         public void addBookToCustomerWishList(string isbn)
         {
             if (isCustomerLoggedIn)
@@ -240,6 +252,13 @@ namespace edu.ksu.cis.masaaki
             }
             cart.AddDisplayItems("=======================================================");
             cart.AddDisplayItems("Total Price : " + LoggedinCustomer.currentCart.totalPrice);
+        }
+
+        public void checkOutCustomer()
+        {
+            listOfPendingTransactions.Add(LoggedinCustomer.currentCart);
+            LoggedinCustomer.pastTransactions.Add(LoggedinCustomer.currentCart);
+            LoggedinCustomer.currentCart = new Transaction(LoggedinCustomer);
         }
     }
 }

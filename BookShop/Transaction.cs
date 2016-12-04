@@ -67,7 +67,7 @@ namespace edu.ksu.cis.masaaki
                     if (sub.numberPurchased == 1)
                     {
                         temp = sub;
-                        sub.purchaseBook.stock++;
+                        sub.purchaseBook.stock += numberToRemove;
                         totalPrice -= sub.purchaseBook.price;
                         itemsPurchased.Remove(temp);
                         return;
@@ -82,5 +82,41 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-    }
+        //might not be used
+        public void removeSubTransaction(string isbn, int numberToRemove)
+        {
+            SubTransaction temp = null;
+            foreach (SubTransaction sub in itemsPurchased)
+            {
+                if (sub.purchaseBook.isbn == isbn)
+                {
+                    if (sub.numberPurchased == 1)
+                    {
+                        temp = sub;
+                        sub.purchaseBook.stock += numberToRemove;
+                        totalPrice -= sub.purchaseBook.price;
+                        itemsPurchased.Remove(temp);
+                        return;
+                    }
+                    else
+                    {
+                        sub.numberPurchased--;
+                        totalPrice -= sub.purchaseBook.price;
+                        return;
+                    }
+                }
+            }
+        }
+
+        public Book findBookByISBN(string isbn)
+        {
+            foreach (SubTransaction sub in itemsPurchased)
+            {
+                if (sub.purchaseBook.isbn == isbn)
+                {
+                    return sub.purchaseBook;
+                }
+            }
+            throw new BookShopException("Unable to find the book you want to remove. Please try again.");
+        }
 }

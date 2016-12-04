@@ -298,11 +298,11 @@ namespace edu.ksu.cis.masaaki
                     {
                         case DialogReturn.CheckOut: // check out
                             // XXX
-
+                            BookShopControl.checkOutCustomer();
                             return;
                         case DialogReturn.ReturnBook: // remove a book
                             // XXX
-
+                            BookShopControl.removeBookFromCustomerCart(BookShopControl.findBookByISBN());
                             continue;
 
                         case DialogReturn.Done: // cancel

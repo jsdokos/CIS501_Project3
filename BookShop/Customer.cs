@@ -57,6 +57,7 @@ namespace edu.ksu.cis.masaaki
         public void removeBookFromCart(Book bookToRemove)
         {
             //currentCart.addNewSubTransaction(bookToRemove, 1);
+            currentCart.removeSubTransaction(bookToRemove, 1);
         }
 
         public void addBookToWishList(Book bookToAdd)
