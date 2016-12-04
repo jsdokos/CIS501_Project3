@@ -17,7 +17,7 @@ namespace edu.ksu.cis.masaaki
         public string phoneNumber;
 
         private List<Transaction> pastTransactions;
-        private List<SubTransaction> currentCart;
+        private List<Transaction> currentCart;
 
         private List<Book> wishList;
 

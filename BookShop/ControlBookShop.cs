@@ -23,6 +23,17 @@ namespace edu.ksu.cis.masaaki
             listOfCompleteTransactions = new List<Transaction>();
         }
 
+        public bool isCustomerLoggedIn
+        {
+            get
+            {
+                if (LoggedinCustomer == null)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
         public ControlBookShop(List<Customer> listOfCustomers, List<Book> listOfBooks, List<Transaction> listOfPendingTransactions, List<Transaction> listOfCompleteTransactions)
         {
             this.listOfCustomers = listOfCustomers;
@@ -73,9 +84,11 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        public void addNewCustomer()
+        public void addNewCustomer(string firstName, string lastName, string userName, string password, string email, string address,
+            string phoneNumber)
         {
-            
+            findDuplicateCustomers(userName);
+            listOfCustomers.Add(new Customer(firstName, lastName,  userName,  password, email, address, phoneNumber));
         }
 
         public void editCustomerInformation(ref CustomerDialog customerDialog)
@@ -85,7 +98,7 @@ namespace edu.ksu.cis.masaaki
                 customerDialog.FirstName = LoggedinCustomer.firstName;
                 customerDialog.LastName = LoggedinCustomer.lastName;
                 customerDialog.UserName = LoggedinCustomer.userName;
-                customerDialog.Password = LoggedinCustomer.phoneNumber;
+                customerDialog.Password = LoggedinCustomer.password;
                 customerDialog.EMailAddress = LoggedinCustomer.email;
                 customerDialog.Address = LoggedinCustomer.address;
                 customerDialog.TelephoneNumber = LoggedinCustomer.phoneNumber;
@@ -101,6 +114,34 @@ namespace edu.ksu.cis.masaaki
             customerDialog.EMailAddress = LoggedinCustomer.email;
             LoggedinCustomer.address = customerDialog.Address;
             LoggedinCustomer.phoneNumber = customerDialog.TelephoneNumber;
+        }
+
+        public void editCurrentCustomer(string firstName, string lastName, string userName, string password, string email, string address,
+            string phoneNumber)
+        {
+            LoggedinCustomer.firstName = firstName;
+            LoggedinCustomer.lastName = lastName;
+            LoggedinCustomer.userName = userName;
+            LoggedinCustomer.password = password;
+            LoggedinCustomer.email = email;
+            LoggedinCustomer.address = address;
+            LoggedinCustomer.phoneNumber = phoneNumber;
+        }
+
+        public void findDuplicateCustomers(string userName)
+        {
+            foreach (Customer cust in listOfCustomers)
+            {
+                if (userName.Equals(cust.userName))
+                {
+                    throw new BookShopException("Your username has already been registered. Please try again.");
+                }
+            }
+        }
+
+        public void addBookToCart()
+        {
+            
         }
     }
 }

@@ -34,8 +34,8 @@ namespace edu.ksu.cis.masaaki
         {
             this.BookShopControl = BookShopControl;
             InitializeComponent();
-
         }
+
 
         // XXX You may add overriding constructors (constructors with different set of arguments).
         // If you do so, make sure to call :this()
@@ -59,6 +59,8 @@ namespace edu.ksu.cis.masaaki
             try
             {
                 // throw exception if the customer is not found
+                loginDialog.UserName = "";
+                loginDialog.Password = "";
                 // XXX Login Button event handler
                 // First, you may want to check if anyone is logged in
                 if (BookShopControl.LoggedinCustomer != null)
@@ -75,6 +77,7 @@ namespace edu.ksu.cis.masaaki
                 else
                 {
                     lbLoggedinCustomer.Text = "Loggedin Customer : (" + loggedInCustomer.userName + ")";
+                    MessageBox.Show("Login Succeeded.");
                 }
 
             }
@@ -90,21 +93,37 @@ namespace edu.ksu.cis.masaaki
             {
                 // throw exception if the customer id is already registered
 
-                foreach (Customer cust in BookShopControl.listOfCustomers)
-                {
-                    if (customerDialog.UserName.Equals(cust.userName))
-                    {
-                        throw new BookShopException("User has already been registered.");
-                    }
-                }
-                // XXX Register Button event handler
+                //foreach (Customer cust in BookShopControl.listOfCustomers)
+                //{
+                //    if (customerDialog.UserName.Equals(cust.userName))
+                //    {
+                //        throw new BookShopException("User has already been registered.");
+                //    }
+                //}
+                //// XXX Register Button event handler
                 customerDialog.ClearDisplayItems();
-                if (customerDialog.Display() == DialogReturn.Cancel) return;
-                // XXX pick up information from customerDialog by calling its properties
-                // and register a new customer
-                if (customerDialog.UserName != "")
-                    BookShopControl.listOfCustomers.Add(new Customer(customerDialog.FirstName, customerDialog.LastName, customerDialog.UserName,
-                    customerDialog.Password, customerDialog.EMailAddress, customerDialog.Address, customerDialog.TelephoneNumber));
+                //if (customerDialog.Display() == DialogReturn.Cancel) return;
+                //// XXX pick up information from customerDialog by calling its properties
+                //// and register a new customer
+                //if (customerDialog.UserName != "")
+                //    BookShopControl.listOfCustomers.Add(new Customer(customerDialog.FirstName, customerDialog.LastName,
+                //        customerDialog.UserName,
+                //        customerDialog.Password, customerDialog.EMailAddress, customerDialog.Address,
+                //        customerDialog.TelephoneNumber));
+
+                BookShopControl.findDuplicateCustomers(customerDialog.UserName);
+                switch (customerDialog.Display())
+                {
+                    case DialogReturn.Cancel:
+                        return;
+                    case DialogReturn.Done:
+                        BookShopControl.addNewCustomer(customerDialog.FirstName, customerDialog.LastName, customerDialog.UserName, 
+                            customerDialog.Password, customerDialog.EMailAddress, customerDialog.Address, customerDialog.TelephoneNumber);
+                        break;
+                    default:
+                        return;
+                }
+
             }
             catch (BookShopException bsex)
             {
@@ -116,11 +135,37 @@ namespace edu.ksu.cis.masaaki
         {
             // XXX Edit Self Info button event handler
             BookShopControl.editCustomerInformation(ref customerDialog);
-            if (customerDialog.Display() == DialogReturn.Cancel) return;
+            //if (customerDialog.Display() == DialogReturn.Cancel) return;
             // XXX Done button is pressed
-            if (customerDialog.Display() == DialogReturn.Done)
-                BookShopControl.addEditedCustomer(ref customerDialog);
+            //if (customerDialog.Display() == DialogReturn.Done)
+            //    BookShopControl.addEditedCustomer(ref customerDialog);
+            try
+            {
+                if (BookShopControl.LoggedinCustomer != null)
+                {
+                    switch (customerDialog.Display())
+                    {
+                        case DialogReturn.Cancel:
+                            return;
+                        case DialogReturn.Done:
+                            BookShopControl.editCurrentCustomer(customerDialog.FirstName, customerDialog.LastName, 
+                                customerDialog.UserName, customerDialog.Password, customerDialog.EMailAddress, customerDialog.Address, customerDialog.TelephoneNumber);
+                            break;
+                        default:
+                            return;
+                    }
+                }
+                else
+                {
+                    throw new BookShopException("There is no user logged in.");
+                }
+            }
+            catch (BookShopException bsex)
+            {
+                MessageBox.Show(this, bsex.ErrorMessage);
+            }
         }
+            
 
         private void bnBook_Click(object sender, EventArgs e)
         {
@@ -156,6 +201,7 @@ namespace edu.ksu.cis.masaaki
                     {
                         case DialogReturn.AddToCart: // Add to Cart
                             // XXX
+                            
                             continue;
 
                         case DialogReturn.AddToWishList: // Add to Wishlist

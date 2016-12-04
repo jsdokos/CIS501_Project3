@@ -16,6 +16,16 @@ namespace edu.ksu.cis.masaaki
 
         private void addNewSubTransaction(Book bookToAdd, int numberToAdd)
         {
+            foreach (SubTransaction sub in itemsPurchased)
+            {
+                if (sub.purchaseBook.isbn == bookToAdd.isbn)
+                {
+                    sub.numberPurchased++;
+                    totalPrice += sub.purchaseBook.price;
+                    return;
+                }
+            }
+
             itemsPurchased.Add(new SubTransaction(bookToAdd, numberToAdd));
             totalPrice += bookToAdd.price*numberToAdd;
         }
