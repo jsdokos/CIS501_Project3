@@ -149,6 +149,7 @@ namespace edu.ksu.cis.masaaki
                 
             }
             //ControlShop.updateObject(listOfCustomers, listOfBooks, listOfPendingTransactions, listOfCompleteTransactions);
+            ControlShop.LoggedinCustomer = null;
         }
 
         void dispatchWindows()

@@ -163,6 +163,18 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
+        public void removeBookFromCustomerWishList(string isbn)
+        {
+            if (isCustomerLoggedIn)
+            {
+                LoggedinCustomer.addBookToWishList(findBookByISBN(isbn));
+            }
+            else
+            {
+                throw new BookShopException("There is no customer logged in currently.");
+            }
+        }
+
         public Book findBookByISBN(string isbn)
         {
             foreach (Book bookToFind in listOfBooks)
@@ -171,6 +183,62 @@ namespace edu.ksu.cis.masaaki
                     return bookToFind;
             }
             throw new BookShopException("Unable to find that book.");
+        }
+
+        public void updateBookInformationDialog(ref BookInformationDialog infoDialog, ref ListBooksDialog listDialog)
+        {
+            //bookInformationDialog.BookTitle = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].name;
+            //bookInformationDialog.Author = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].author;
+            //bookInformationDialog.Publisher = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].publisher;
+            //bookInformationDialog.ISBN = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn;
+            //bookInformationDialog.Date = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].date;
+            //bookInformationDialog.Price = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].price;
+            //bookInformationDialog.Stock = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].stock;
+
+            infoDialog.BookTitle = listOfBooks[listDialog.SelectedIndex].name;
+            infoDialog.Author = listOfBooks[listDialog.SelectedIndex].author;
+            infoDialog.Publisher = listOfBooks[listDialog.SelectedIndex].publisher;
+            infoDialog.ISBN = listOfBooks[listDialog.SelectedIndex].isbn;
+            infoDialog.Date = listOfBooks[listDialog.SelectedIndex].date;
+            infoDialog.Price = listOfBooks[listDialog.SelectedIndex].price;
+            infoDialog.Stock = listOfBooks[listDialog.SelectedIndex].stock;
+        }
+
+        public void showCartInformation(ref CartDialog cart)
+        {
+            //if (!BookShopControl.isCustomerLoggedIn)
+            //{
+            //    throw new BookShopException("You are not logged in.");
+            //}
+            //if (BookShopControl.LoggedinCustomer.currentCart.subTransactionCount <= 0)
+            //{
+            //    throw new BookShopException("There are no items in your cart.");
+            //}
+            //for (int i = 0; i < BookShopControl.LoggedinCustomer.currentCart.subTransactionCount; i++)
+            //{
+            //    cartDialog.AddDisplayItems("\"" + BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.name + "\" BY " +
+            //        BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.author + " " + BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].numberPurchased + "   $"
+            //        + BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].subTransactionPrice);
+            //}
+            //cartDialog.AddDisplayItems("=======================================================");
+            //cartDialog.AddDisplayItems("Total Price : " + BookShopControl.LoggedinCustomer.currentCart.totalPrice);
+
+            if (!isCustomerLoggedIn)
+            {
+                throw new BookShopException("You are not logged in.");
+            }
+            if (LoggedinCustomer.currentCart.subTransactionCount <= 0)
+            {
+                throw new BookShopException("There are no items in your cart.");
+            }
+            for (int i = 0; i < LoggedinCustomer.currentCart.subTransactionCount; i++)
+            {
+                cart.AddDisplayItems("\"" + LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.name + "\" BY " +
+                   LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.author + " " + LoggedinCustomer.currentCart.itemsPurchased[i].numberPurchased + "   $"
+                    + LoggedinCustomer.currentCart.itemsPurchased[i].subTransactionPrice);
+            }
+            cart.AddDisplayItems("=======================================================");
+            cart.AddDisplayItems("Total Price : " + LoggedinCustomer.currentCart.totalPrice);
         }
     }
 }

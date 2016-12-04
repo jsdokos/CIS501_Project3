@@ -9,9 +9,9 @@ namespace edu.ksu.cis.masaaki
     [Serializable()]
     public class Transaction
     {
-        private List<SubTransaction> itemsPurchased;
+        public List<SubTransaction> itemsPurchased;
         private Customer customerName;
-        private decimal totalPrice;
+        public decimal totalPrice;
 
         public Transaction(Customer cust, Book bookToAdd)
         {
@@ -26,6 +26,11 @@ namespace edu.ksu.cis.masaaki
             itemsPurchased = new List<SubTransaction>();
         }
 
+        public int subTransactionCount
+        {
+            get { return itemsPurchased.Count; }
+        }
+
         public void addBook(Book bookToAdd)
         {
             itemsPurchased.Add(new SubTransaction(bookToAdd, 1));
@@ -33,11 +38,16 @@ namespace edu.ksu.cis.masaaki
 
         public void addNewSubTransaction(Book bookToAdd, int numberToAdd)
         {
+            if (bookToAdd.stock <= 0)
+            {
+                throw new BookShopException("There are no more books left. Sorry!");
+            }
             foreach (SubTransaction sub in itemsPurchased)
             {
                 if (sub.purchaseBook.isbn == bookToAdd.isbn)
                 {
                     sub.numberPurchased++;
+                    bookToAdd.stock--;
                     totalPrice += sub.purchaseBook.price;
                     return;
                 }
@@ -45,6 +55,31 @@ namespace edu.ksu.cis.masaaki
 
             itemsPurchased.Add(new SubTransaction(bookToAdd, numberToAdd));
             totalPrice += bookToAdd.price*numberToAdd;
+        }
+
+        public void removeSubTransaction(Book bookToRemove, int numberToRemove)
+        {
+            SubTransaction temp = null;
+            foreach (SubTransaction sub in itemsPurchased)
+            {
+                if (sub.purchaseBook.isbn == bookToRemove.isbn)
+                {
+                    if (sub.numberPurchased == 1)
+                    {
+                        temp = sub;
+                        sub.purchaseBook.stock++;
+                        totalPrice -= sub.purchaseBook.price;
+                        itemsPurchased.Remove(temp);
+                        return;
+                    }
+                    else
+                    {
+                        sub.numberPurchased--;
+                        totalPrice -= sub.purchaseBook.price;
+                        return;
+                    }
+                }
+            }
         }
 
     }

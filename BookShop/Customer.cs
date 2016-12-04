@@ -54,12 +54,30 @@ namespace edu.ksu.cis.masaaki
             currentCart.addNewSubTransaction(bookToAdd, 1);
         }
 
+        public void removeBookFromCart(Book bookToRemove)
+        {
+            //currentCart.addNewSubTransaction(bookToRemove, 1);
+        }
+
         public void addBookToWishList(Book bookToAdd)
         {
+            //check to see if it is already on the wishlist
+            foreach (Book bookOnwishList in wishList)
+            {
+                if (bookOnwishList.isbn == bookToAdd.isbn)
+                {
+                    throw new BookShopException("Book is already on wishlist.");
+                }
+            }
             wishList.Add(bookToAdd);
         }
 
-        
+        public void removeBookFromWishList(Book bookToRemove)
+        {
+            wishList.Remove(bookToRemove);
+        }
+
+
     }   
 
 }

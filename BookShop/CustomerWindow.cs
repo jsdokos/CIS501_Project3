@@ -188,14 +188,7 @@ namespace edu.ksu.cis.masaaki
 
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
-                    bookInformationDialog.BookTitle = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].name;
-                    bookInformationDialog.Author = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].author;
-                    bookInformationDialog.Publisher =
-                        BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].publisher;
-                    bookInformationDialog.ISBN = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn;
-                    bookInformationDialog.Date = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].date;
-                    bookInformationDialog.Price = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].price;
-                    bookInformationDialog.Stock = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].stock;
+                    BookShopControl.updateBookInformationDialog(ref bookInformationDialog, ref listBooksDialog);
 
                     switch (bookInformationDialog.Display())
                     {
@@ -245,21 +238,30 @@ namespace edu.ksu.cis.masaaki
                     }
                     foreach (Book displayBook in BookShopControl.LoggedinCustomer.wishList)
                     {
-                        listBooksDialog.AddDisplayItems(displayBook.ToString());
+                        wishListDialog.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
                     }
 
                     if (wishListDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
                     //XXX 
+                    BookShopControl.updateBookInformationDialog(ref bookInformationDialog, ref listBooksDialog);
+                    bookInformationDialog.BookTitle = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].name;
+                    bookInformationDialog.Author = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].author;
+                    bookInformationDialog.Publisher = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].publisher;
+                    bookInformationDialog.ISBN = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn;
+                    bookInformationDialog.Date = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].date;
+                    bookInformationDialog.Price = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].price;
+                    bookInformationDialog.Stock = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].stock;
+
                     switch (bookInWishListDialog.Display())
                     {
                         case DialogReturn.AddToCart:
                             // XXX 
-
+                            BookShopControl.addBookToCustomerCart(BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn);
                             continue;
                         case DialogReturn.Remove:
                             // XXX
-
+                            BookShopControl.removeBookFromCustomerWishList(BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn);
                             continue;
                         case DialogReturn.Done: // Done
                             continue;
@@ -287,7 +289,10 @@ namespace edu.ksu.cis.masaaki
                 {
                     // to capture an exception from SelectedIndex/SelectedItem of carDisplay
                     cartDialog.ClearDisplayItems();
-                    cartDialog.AddDisplayItems(null); // null is a dummy argument
+                    //cartDialog.AddDisplayItems(null); // null is a dummy argument
+
+                    //HERE
+                    BookShopControl.showCartInformation(ref cartDialog);
                     switch (cartDialog.Display())
                     {
                         case DialogReturn.CheckOut: // check out
