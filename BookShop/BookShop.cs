@@ -116,24 +116,24 @@ namespace edu.ksu.cis.masaaki
                                     break;
                                 case "Login":
                                     // XXX use words[1] and words[2] to login a customer
-                                    //TODO implement login Dictionary?
+                                    ControlShop.LoggedinCustomer = ControlShop.findCustomerLogin(words[1], words[2]);
                                     break;
                                 case "AddBookToWishList":
                                     // XXX use words[1] (ISBN) to register the book in the current customer's wishlist
-
+                                    ControlShop.addBookToCustomerWishList(words[1]);
                                     break;
                                 case "AddBookToCart":
                                     // XXX use words[1] (ISBN) to add the book in the current customer's cart
-
+                                    ControlShop.addBookToCustomerCart(words[1]);
                                     break;
                                 case "CheckOut":
                                     // XXX check out the current customer's cart
-
+                                    //TODO THIS
                                     break;
                                 case "ProcessPendingTransaction":
                                     // XXX use words[1] (index of the pending transactions) to identify the pending
                                     // transaction to approve
-
+                                    //TODO THIS
                                     break;
                                 default:
                                     MessageBox.Show(this, "Unknown Operation : " + words[0]);

@@ -16,13 +16,13 @@ namespace edu.ksu.cis.masaaki
         public string address;
         public string phoneNumber;
 
-        private List<Transaction> pastTransactions;
-        private List<Transaction> currentCart;
+        public List<Transaction> pastTransactions;
+        public Transaction currentCart;
 
-        private List<Book> wishList;
+        public List<Book> wishList;
 
-        public Customer(string firstName, string lastName, string userName, string password, string email, string address,
-            string phoneNumber)
+        public Customer(string firstName, string lastName, string userName, string password, string email,
+            string address, string phoneNumber)
         {
 
             this.firstName = firstName;
@@ -32,6 +32,10 @@ namespace edu.ksu.cis.masaaki
             this.email = email;
             this.address = address;
             this.phoneNumber = phoneNumber;
+
+            currentCart = new Transaction(this);
+            pastTransactions = new List<Transaction>();
+            wishList = new List<Book>();
         }
 
         public Customer(string firstName, string lastName)
@@ -45,6 +49,17 @@ namespace edu.ksu.cis.masaaki
             this.phoneNumber = "9138290400";
         }
 
-    }
+        public void addBookToCart(Book bookToAdd)
+        {
+            currentCart.addNewSubTransaction(bookToAdd, 1);
+        }
+
+        public void addBookToWishList(Book bookToAdd)
+        {
+            wishList.Add(bookToAdd);
+        }
+
+        
+    }   
 
 }

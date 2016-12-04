@@ -139,9 +139,38 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        public void addBookToCart()
+        public void addBookToCustomerCart(string isbn)
         {
-            
+            if (isCustomerLoggedIn)
+            {
+                LoggedinCustomer.addBookToCart(findBookByISBN(isbn));
+            }
+            else
+            {
+                throw new BookShopException("There is no customer logged in currently.");
+            }
+        }
+
+        public void addBookToCustomerWishList(string isbn)
+        {
+            if (isCustomerLoggedIn)
+            {
+                LoggedinCustomer.addBookToWishList(findBookByISBN(isbn));
+            }
+            else
+            {
+                throw new BookShopException("There is no customer logged in currently.");
+            }
+        }
+
+        public Book findBookByISBN(string isbn)
+        {
+            foreach (Book bookToFind in listOfBooks)
+            {
+                if (bookToFind.isbn.Equals(isbn))
+                    return bookToFind;
+            }
+            throw new BookShopException("Unable to find that book.");
         }
     }
 }

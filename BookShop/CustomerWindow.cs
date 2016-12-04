@@ -201,12 +201,12 @@ namespace edu.ksu.cis.masaaki
                     {
                         case DialogReturn.AddToCart: // Add to Cart
                             // XXX
-                            
+                            BookShopControl.addBookToCustomerCart(BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn);
                             continue;
 
                         case DialogReturn.AddToWishList: // Add to Wishlist
                             // XXX
-
+                            BookShopControl.addBookToCustomerWishList(BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn);
                             continue;
 
                         case DialogReturn.Done: // cancel
@@ -233,7 +233,21 @@ namespace edu.ksu.cis.masaaki
                 {
                     // to capture an excepton by SelectedItem/SelectedIndex of wishListDialog
                     wishListDialog.ClearDisplayItems();
-                    wishListDialog.AddDisplayItems(null); // XXX null is a dummy argument
+                    //wishListDialog.AddDisplayItems(null); // XXX null is a dummy argument
+
+                    if (!BookShopControl.isCustomerLoggedIn)
+                    {
+                        throw new BookShopException("You are not logged in.");
+                    }
+                    if (BookShopControl.LoggedinCustomer.wishList.Count <= 0)
+                    {
+                        throw new BookShopException("There are no items on your wishlist.");
+                    }
+                    foreach (Book displayBook in BookShopControl.LoggedinCustomer.wishList)
+                    {
+                        listBooksDialog.AddDisplayItems(displayBook.ToString());
+                    }
+
                     if (wishListDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
                     //XXX 
@@ -254,7 +268,12 @@ namespace edu.ksu.cis.masaaki
                 catch (BookShopException bsex)
                 {
                     MessageBox.Show(this, bsex.ErrorMessage);
-                    continue;
+                    return;
+                }
+                catch (NullReferenceException nex)
+                {
+                    //throw new BookShopException("There are no items on your wishlist.");
+                    return;
                 }
             }
         }

@@ -13,8 +13,25 @@ namespace edu.ksu.cis.masaaki
         private Customer customerName;
         private decimal totalPrice;
 
+        public Transaction(Customer cust, Book bookToAdd)
+        {
+            customerName = cust;
+            addNewSubTransaction(bookToAdd, 1);
+        }
 
-        private void addNewSubTransaction(Book bookToAdd, int numberToAdd)
+        public Transaction(Customer cust)
+        {
+            customerName = cust;
+            totalPrice = 0;
+            itemsPurchased = new List<SubTransaction>();
+        }
+
+        public void addBook(Book bookToAdd)
+        {
+            itemsPurchased.Add(new SubTransaction(bookToAdd, 1));
+        }
+
+        public void addNewSubTransaction(Book bookToAdd, int numberToAdd)
         {
             foreach (SubTransaction sub in itemsPurchased)
             {
