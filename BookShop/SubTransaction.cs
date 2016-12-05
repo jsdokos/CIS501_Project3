@@ -36,5 +36,13 @@ namespace edu.ksu.cis.masaaki
         //    }
         //    return false;
         //}
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("\"" + purchaseBook.name + "\" BY " + purchaseBook.author + " " + numberPurchased + "   $ " + (purchaseBook.price * numberPurchased));
+
+            return sb.ToString();
+        }
     }
 }

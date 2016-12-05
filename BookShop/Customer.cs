@@ -82,7 +82,7 @@ namespace edu.ksu.cis.masaaki
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.Append(firstName + " " + lastName + " " + email + " " + address + " " + phoneNumber);
+            sb.Append(firstName + " " + lastName + " " + userName+ " " + email + " " + address + " " + phoneNumber);
 
             return sb.ToString();
         }

@@ -48,10 +48,13 @@ namespace edu.ksu.cis.masaaki
 
         public void updateBookInformationStaff(ref BookDialog bd, ref ListBooksDialog list)
         {
-            decimal temp;
+            listOfBooks[list.SelectedIndex].name = bd.BookTitle;
+            listOfBooks[list.SelectedIndex].author = bd.Author;
+            listOfBooks[list.SelectedIndex].publisher = bd.Publisher;
+            listOfBooks[list.SelectedIndex].isbn = bd.ISBN;
             listOfBooks[list.SelectedIndex].price = bd.Price;
-            //TODO Start back here and work on completing the update of book by staff
-
+            listOfBooks[list.SelectedIndex].date = bd.Date;
+            listOfBooks[list.SelectedIndex].stock = bd.Stock;
         }
 
     public ControlBookShop(List<Customer> listOfCustomers, List<Book> listOfBooks,
@@ -282,6 +285,7 @@ namespace edu.ksu.cis.masaaki
             }
             for (int i = 0; i < LoggedinCustomer.currentCart.subTransactionCount; i++)
             {
+                //TODO move to subtransaction ToString
                 cart.AddDisplayItems("\"" + LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.name + "\" BY " +
                    LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.author + " " + LoggedinCustomer.currentCart.itemsPurchased[i].numberPurchased + "   $"
                     + LoggedinCustomer.currentCart.itemsPurchased[i].subTransactionPrice);
@@ -312,6 +316,17 @@ namespace edu.ksu.cis.masaaki
             listOfPendingTransactions.Add(LoggedinCustomer.currentCart);
             LoggedinCustomer.pastTransactions.Add(LoggedinCustomer.currentCart);
             LoggedinCustomer.currentCart = new Transaction(LoggedinCustomer);
+        }
+
+        public void approveTransaction(Transaction transactionToBeApproved)
+        {
+            listOfCompleteTransactions.Add(transactionToBeApproved);
+            listOfCompleteTransactions.Remove(transactionToBeApproved);
+        }
+
+        public void removeTransactionFromPending(Transaction transactionTobeRemoved)
+        {
+            listOfCompleteTransactions.Remove(transactionTobeRemoved);
         }
     }
 }

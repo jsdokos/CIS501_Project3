@@ -10,7 +10,7 @@ namespace edu.ksu.cis.masaaki
     public class Transaction
     {
         public List<SubTransaction> itemsPurchased;
-        private Customer customerName;
+        public Customer customerName;
         public decimal totalPrice;
 
         public Transaction(Customer cust, Book bookToAdd)

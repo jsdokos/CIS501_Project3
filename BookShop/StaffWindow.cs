@@ -166,28 +166,42 @@ namespace edu.ksu.cis.masaaki
                 try
                 {  // to capture an exception from SelectedIndex/SelectedItem of listPendingTransactionsDialog
                     listPendingTransactionsDialog.ClearDisplayItems();
-                    listPendingTransactionsDialog.AddDisplayItems(null);  // null is a dummy argument
+                    //listPendingTransactionsDialog.AddDisplayItems(null);  // null is a dummy argument
+                    foreach (Transaction tran in BookShopControl.listOfPendingTransactions)
+                    {
+                        //TODO move into new method
+                        listPendingTransactionsDialog.AddDisplayItems(tran.customerName.userName + " : " + tran.ToString());
+                    }
                     if (listPendingTransactionsDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
-              
+
                     while (true)
                     {
                         try
                         {  // to capture an exception from SelectedItem/SelectedTransaction of showPendingTransactionDialog
                             showPendingTransactionDialog.ClearDisplayItems();
-                            showPendingTransactionDialog.AddDisplayItems(null); // null is a dummy argument
+                            //showPendingTransactionDialog.AddDisplayItems(null); // null is a dummy argument
+
+                            for (int i = 0; i < BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].subTransactionCount; i++)
+                            {
+                                showPendingTransactionDialog.AddDisplayItems(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
+                            }
+                            showPendingTransactionDialog.AddDisplayItems("=======================================================");
+                            showPendingTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].totalPrice);
+
                             switch (showPendingTransactionDialog.Display())
                             {
                                 case DialogReturn.Approve:  // Transaction Processed
                                     // XXX
+                                    BookShopControl.approveTransaction(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex]);
                                     break;
                                 case DialogReturn.ReturnBook: // Return Book
                                     // XXX
-                                        
+                                        //TODO why tho
                                     continue;
                                 case DialogReturn.Remove: // Remove transaction
                                     // XXX
-
+                                    BookShopControl.removeTransactionFromPending(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex]);
                                     break;
                             }
                             break; //for "transaction processed"
