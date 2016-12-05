@@ -116,7 +116,7 @@ namespace edu.ksu.cis.masaaki
                                     break;
                                 case "Login":
                                     // XXX use words[1] and words[2] to login a customer
-                                    ControlShop.LoggedinCustomer = ControlShop.findCustomerLogin(words[1], words[2]);
+                                    ControlShop.findCustomerLogin(words[1], words[2]);
                                     customerWindow.updateLabel = ControlShop.LoggedinCustomer.userName;
                                     break;
                                 case "AddBookToWishList":
@@ -129,7 +129,7 @@ namespace edu.ksu.cis.masaaki
                                     break;
                                 case "CheckOut":
                                     // XXX check out the current customer's cart
-                                    ControlShop.checkOutCustomer(); //TODO make sure this works
+                                    ControlShop.checkOutCustomer(); 
                                     break;
                                 case "ProcessPendingTransaction":
                                     // XXX use words[1] (index of the pending transactions) to identify the pending
@@ -150,7 +150,7 @@ namespace edu.ksu.cis.masaaki
                 
             }
             //ControlShop.updateObject(listOfCustomers, listOfBooks, listOfPendingTransactions, listOfCompleteTransactions);
-            //ControlShop.LoggedinCustomer = null; //TODO: CHange this back
+            //ControlShop.LoggedinCustomer = null; 
         }
 
         void dispatchWindows()

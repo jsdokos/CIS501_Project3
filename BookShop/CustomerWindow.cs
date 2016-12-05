@@ -67,22 +67,16 @@ namespace edu.ksu.cis.masaaki
                 loginDialog.Password = "";
                 // XXX Login Button event handler
                 // First, you may want to check if anyone is logged in
-                if (BookShopControl.LoggedinCustomer != null)
+                if (!BookShopControl.isCustomerLoggedIn)
                     throw new BookShopException("Customer is already logged in");
 
                 if (loginDialog.Display() == DialogReturn.Cancel) return;
                 // XXX Login Button is pressed
-                Customer loggedInCustomer = BookShopControl.findCustomerLogin(loginDialog.UserName, loginDialog.Password);
+                BookShopControl.findCustomerLogin(loginDialog.UserName, loginDialog.Password);
 
-                if (loggedInCustomer == null)
-                {
-                    throw new BookShopException("Customer does not exist.");
-                }
-                else
-                {
-                    updateLabel = loggedInCustomer.userName;
-                    MessageBox.Show("Login Succeeded.");
-                }
+
+                updateLabel = BookShopControl.LoggedinCustomer.userName;
+                MessageBox.Show("Login Succeeded.");
 
             }
             catch (BookShopException bsex)

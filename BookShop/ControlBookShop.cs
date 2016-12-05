@@ -57,15 +57,15 @@ namespace edu.ksu.cis.masaaki
             listOfBooks[list.SelectedIndex].stock = bd.Stock;
         }
 
-        public Customer findCustomerLogin(string user, string pass)
+        public void findCustomerLogin(string user, string pass)
         {
             foreach (Customer cust in this.listOfCustomers)
             {
                 if (cust.userName.Equals(user) && cust.password.Equals(pass))
                 {
                     LoggedinCustomer = cust;
-
-                    return cust;
+                    return;
+                    //return cust;
                 }
             }
             throw new BookShopException("Customer does not exist.");
