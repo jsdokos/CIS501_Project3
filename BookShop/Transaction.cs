@@ -54,6 +54,7 @@ namespace edu.ksu.cis.masaaki
             }
 
             itemsPurchased.Add(new SubTransaction(bookToAdd, numberToAdd));
+            bookToAdd.stock--;
             totalPrice += bookToAdd.price*numberToAdd;
         }
 

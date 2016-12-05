@@ -264,6 +264,8 @@ namespace edu.ksu.cis.masaaki
                         case DialogReturn.AddToCart:
                             // XXX 
                             BookShopControl.addBookToCustomerCart(BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn);
+                            Book temp = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex];
+                            bookInWishListDialog.Stock = temp.stock;
                             continue;
                         case DialogReturn.Remove:
                             // XXX
@@ -375,7 +377,7 @@ namespace edu.ksu.cis.masaaki
             try
             {
                 BookShopControl.logoutCustomer();
-                lbLoggedinCustomer.Text = "Loggedin Customer : (none)";
+                updateLabel = "none";
             }
             catch (BookShopException ex)
             {

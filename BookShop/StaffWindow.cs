@@ -289,7 +289,7 @@ namespace edu.ksu.cis.masaaki
                 
 
                 //TODO Test this to make sure it works
-                using (Stream fs = File.Open("foo.vrs", FileMode.Create))
+                using (Stream fs = File.Open(saveFileDialog.FileName, FileMode.Create))
                 {
                     BinaryFormatter fo = new BinaryFormatter();
                     fo.Serialize(fs, BookShopControl.listOfCustomers);
@@ -315,7 +315,7 @@ namespace edu.ksu.cis.masaaki
                 openFileDialog.InitialDirectory = Application.StartupPath;
                 if (openFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
-                using (Stream fs = File.Open("foo.vrs", FileMode.OpenOrCreate, FileAccess.Read))
+                using (Stream fs = File.Open(openFileDialog.SafeFileName, FileMode.OpenOrCreate, FileAccess.Read))
                 {
                     BinaryFormatter fo = new BinaryFormatter();
                     //fo.Serialize(fs, BookShopControl.listOfCustomers);
