@@ -134,7 +134,7 @@ namespace edu.ksu.cis.masaaki
                                 case "ProcessPendingTransaction":
                                     // XXX use words[1] (index of the pending transactions) to identify the pending
                                     // transaction to approve
-                                    //TODO this
+                                    ControlShop.approveTransaction(ControlShop.listOfPendingTransactions[Int32.Parse(words[1])]);
                                     break;
                                 default:
                                     MessageBox.Show(this, "Unknown Operation : " + words[0]);

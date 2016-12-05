@@ -7,6 +7,7 @@ using System.Windows.Forms;
 
 namespace edu.ksu.cis.masaaki
 {
+    [Serializable]
     public class SubTransaction
     {
         public Book purchaseBook;

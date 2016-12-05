@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace edu.ksu.cis.masaaki
 {
-    [Serializable()]
+    [Serializable]
     public class Transaction
     {
         public List<SubTransaction> itemsPurchased;

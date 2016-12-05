@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -283,8 +286,20 @@ namespace edu.ksu.cis.masaaki
                 saveFileDialog.InitialDirectory = Application.StartupPath;
                 if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
+                
+
+                //TODO Test this to make sure it works
+                using (Stream fs = File.Open("foo.vrs", FileMode.Create))
+                {
+                    BinaryFormatter fo = new BinaryFormatter();
+                    fo.Serialize(fs, BookShopControl.listOfCustomers);
+                    fo.Serialize(fs, BookShopControl.listOfBooks);
+
+                    fo.Serialize(fs, BookShopControl.listOfPendingTransactions);
+                    fo.Serialize(fs, BookShopControl.listOfCompleteTransactions);
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Serialization Failed");
             }
@@ -300,9 +315,22 @@ namespace edu.ksu.cis.masaaki
                 openFileDialog.InitialDirectory = Application.StartupPath;
                 if (openFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
+                using (Stream fs = File.Open("foo.vrs", FileMode.OpenOrCreate, FileAccess.Read))
+                {
+                    BinaryFormatter fo = new BinaryFormatter();
+                    //fo.Serialize(fs, BookShopControl.listOfCustomers);
+                    //fo.Serialize(fs, BookShopControl.listOfBooks);
+                    BookShopControl.listOfCustomers = (List<Customer>) fo.Deserialize(fs);
+                    BookShopControl.listOfBooks = (List<Book>) fo.Deserialize(fs);
+
+                    //fo.Serialize(fs, BookShopControl.listOfPendingTransactions);
+                    //fo.Serialize(fs, BookShopControl.listOfCompleteTransactions);
+                    BookShopControl.listOfPendingTransactions = (List<Transaction>) fo.Deserialize(fs);
+                    BookShopControl.listOfCompleteTransactions = (List<Transaction>) fo.Deserialize(fs);
+                }
             }
  
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Serialization Failed");
             }

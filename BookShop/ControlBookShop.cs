@@ -339,5 +339,6 @@ namespace edu.ksu.cis.masaaki
             listOfCompleteTransactions.Remove(transactionTobeRemoved);
             transactionTobeRemoved.customerName.pastTransactions.Remove(transactionTobeRemoved);
         }
+
     }
 }
