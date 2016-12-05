@@ -219,7 +219,7 @@ namespace edu.ksu.cis.masaaki
         {
             if (isCustomerLoggedIn)
             {
-                LoggedinCustomer.addBookToWishList(findBookByISBN(isbn));
+                LoggedinCustomer.removeBookFromWishList(findBookByISBN(isbn));
             }
             else
             {
@@ -237,6 +237,10 @@ namespace edu.ksu.cis.masaaki
             throw new BookShopException("Unable to find that book.");
         }
 
+        public string findISBNbyBook(Book bookToFind)
+        {
+            return "poop";
+        }
         public void updateBookInformationDialog(ref BookInformationDialog infoDialog, ref ListBooksDialog listDialog)
         {
             //bookInformationDialog.BookTitle = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].name;
@@ -321,12 +325,19 @@ namespace edu.ksu.cis.masaaki
         public void approveTransaction(Transaction transactionToBeApproved)
         {
             listOfCompleteTransactions.Add(transactionToBeApproved);
-            listOfCompleteTransactions.Remove(transactionToBeApproved);
+            listOfPendingTransactions.Remove(transactionToBeApproved);
         }
 
         public void removeTransactionFromPending(Transaction transactionTobeRemoved)
         {
+            listOfPendingTransactions.Remove(transactionTobeRemoved);
+            transactionTobeRemoved.customerName.pastTransactions.Remove(transactionTobeRemoved);
+        }
+
+        public void removeTransactionFromComplete(Transaction transactionTobeRemoved)
+        {
             listOfCompleteTransactions.Remove(transactionTobeRemoved);
+            transactionTobeRemoved.customerName.pastTransactions.Remove(transactionTobeRemoved);
         }
     }
 }

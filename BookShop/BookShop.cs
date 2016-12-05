@@ -117,6 +117,7 @@ namespace edu.ksu.cis.masaaki
                                 case "Login":
                                     // XXX use words[1] and words[2] to login a customer
                                     ControlShop.LoggedinCustomer = ControlShop.findCustomerLogin(words[1], words[2]);
+                                    customerWindow.updateLabel = ControlShop.LoggedinCustomer.userName;
                                     break;
                                 case "AddBookToWishList":
                                     // XXX use words[1] (ISBN) to register the book in the current customer's wishlist

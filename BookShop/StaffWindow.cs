@@ -175,6 +175,7 @@ namespace edu.ksu.cis.masaaki
                     if (listPendingTransactionsDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
 
+                    //TODO infinite loop if no line is selected
                     while (true)
                     {
                         try
@@ -194,10 +195,14 @@ namespace edu.ksu.cis.masaaki
                                 case DialogReturn.Approve:  // Transaction Processed
                                     // XXX
                                     BookShopControl.approveTransaction(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex]);
+                                    if (BookShopControl.listOfPendingTransactions.Count <= 0)
+                                        return;
                                     break;
                                 case DialogReturn.ReturnBook: // Return Book
                                     // XXX
-                                        //TODO why tho
+                                    BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].
+                                        removeSubTransaction(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[showPendingTransactionDialog.SelectedIndex].purchaseBook.isbn, 1);
+                                    //book to remove BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[showPendingTransactionDialog.SelectedIndex]
                                     continue;
                                 case DialogReturn.Remove: // Remove transaction
                                     // XXX
@@ -209,7 +214,7 @@ namespace edu.ksu.cis.masaaki
                         catch (BookShopException bsex)
                         {
                             MessageBox.Show(this, bsex.ErrorMessage);
-                            continue;
+                            return;
                         }
                     }
                 }
@@ -230,17 +235,29 @@ namespace edu.ksu.cis.masaaki
                 try
                 { // to capture an exception from SelectedItem/SelectedIndex of listCompleteTransactionsDialog
                     listCompleteTransactionsDialog.ClearDisplayItems();
-                    listCompleteTransactionsDialog.AddDisplayItems(null); // XXX null is a dummy argument
+                    //listCompleteTransactionsDialog.AddDisplayItems(null); // XXX null is a dummy argument
+                    foreach (Transaction tran in BookShopControl.listOfCompleteTransactions)
+                    {
+                        //TODO move into new method
+                        listCompleteTransactionsDialog.AddDisplayItems(tran.customerName.userName + " : " + tran.ToString());
+                    }
                     if (listCompleteTransactionsDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
                     
                     showCompleteTransactionDialog.ClearDisplayItems();
-                    showCompleteTransactionDialog.AddDisplayItems(null); // XXX null is a dummy argument
+                    //showCompleteTransactionDialog.AddDisplayItems(null); // XXX null is a dummy argument
+                    for (int i = 0; i < BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].subTransactionCount; i++)
+                    {
+                        showCompleteTransactionDialog.AddDisplayItems(BookShopControl.listOfPendingTransactions[listCompleteTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
+                    }
+                    showCompleteTransactionDialog.AddDisplayItems("=======================================================");
+                    showCompleteTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].totalPrice);
+
                     switch (showCompleteTransactionDialog.Display())
                     {
                         case DialogReturn.Remove: // transaction Remove
                             // XXX
-
+                            BookShopControl.removeTransactionFromComplete(null);
                             continue;
                         case DialogReturn.Done:
                             continue;

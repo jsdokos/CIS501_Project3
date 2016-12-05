@@ -36,6 +36,10 @@ namespace edu.ksu.cis.masaaki
             InitializeComponent();
         }
 
+        public string updateLabel
+        {
+            set { lbLoggedinCustomer.Text = "Loggedin Customer : (" + value + ")"; }
+        }
 
         // XXX You may add overriding constructors (constructors with different set of arguments).
         // If you do so, make sure to call :this()
@@ -76,7 +80,7 @@ namespace edu.ksu.cis.masaaki
                 }
                 else
                 {
-                    lbLoggedinCustomer.Text = "Loggedin Customer : (" + loggedInCustomer.userName + ")";
+                    updateLabel = loggedInCustomer.userName;
                     MessageBox.Show("Login Succeeded.");
                 }
 
@@ -304,6 +308,7 @@ namespace edu.ksu.cis.masaaki
                         case DialogReturn.ReturnBook: // remove a book
                             // XXX
                             //BookShopControl.removeBookFromCustomerCart(); TODO implement this
+                            BookShopControl.removeBookFromCustomerCart(BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[cartDialog.SelectedIndex].purchaseBook.isbn);
                             continue;
 
                         case DialogReturn.Done: // cancel
