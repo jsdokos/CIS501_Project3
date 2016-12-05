@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace edu.ksu.cis.masaaki
 {
@@ -12,7 +13,7 @@ namespace edu.ksu.cis.masaaki
         public List<Book> listOfBooks;
         public List<Transaction> listOfPendingTransactions;
         public List<Transaction> listOfCompleteTransactions;
-        public Dictionary<string,Customer> LoginDictionary = new Dictionary<string, Customer>();
+        public Dictionary<string, Customer> LoginDictionary = new Dictionary<string, Customer>();
         public Customer LoggedinCustomer = null;
 
         public ControlBookShop()
@@ -34,7 +35,27 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        public ControlBookShop(List<Customer> listOfCustomers, List<Book> listOfBooks, List<Transaction> listOfPendingTransactions, List<Transaction> listOfCompleteTransactions)
+        public void editBookStaffView(ref BookDialog dia, ref ListBooksDialog list)
+        {
+            dia.BookTitle = listOfBooks[list.SelectedIndex].name;
+            dia.Author = listOfBooks[list.SelectedIndex].author;
+            dia.Publisher = listOfBooks[list.SelectedIndex].publisher;
+            dia.ISBN = listOfBooks[list.SelectedIndex].isbn;
+            dia.Price = listOfBooks[list.SelectedIndex].price;
+            dia.Date = listOfBooks[list.SelectedIndex].date;
+            dia.Stock = listOfBooks[list.SelectedIndex].stock;
+        }
+
+        public void updateBookInformationStaff(ref BookDialog bd, ref ListBooksDialog list)
+        {
+            decimal temp;
+            listOfBooks[list.SelectedIndex].price = bd.Price;
+            //TODO Start back here and work on completing the update of book by staff
+
+        }
+
+    public ControlBookShop(List<Customer> listOfCustomers, List<Book> listOfBooks,
+            List<Transaction> listOfPendingTransactions, List<Transaction> listOfCompleteTransactions)
         {
             this.listOfCustomers = listOfCustomers;
             this.listOfBooks = listOfBooks;
@@ -85,11 +106,26 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        public void addNewCustomer(string firstName, string lastName, string userName, string password, string email, string address,
+        public void addNewCustomer(string firstName, string lastName, string userName, string password, string email,
+            string address,
             string phoneNumber)
         {
             findDuplicateCustomers(userName);
-            listOfCustomers.Add(new Customer(firstName, lastName,  userName,  password, email, address, phoneNumber));
+            listOfCustomers.Add(new Customer(firstName, lastName, userName, password, email, address, phoneNumber));
+        }
+
+        public void addNewBook(string name, string author, string publisher, string isbn, decimal price, string date,
+            int stock)
+        {
+            try
+            {
+                findBookByISBN(isbn);
+                listOfBooks.Add(new Book(name, author, publisher, isbn,  price, date, stock));
+            }
+            catch (BookShopException bsex)
+            {
+                MessageBox.Show("A book with that ISBN has already been registered.");
+            }
         }
 
         public void editCustomerInformation(ref CustomerDialog customerDialog)

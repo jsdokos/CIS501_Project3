@@ -57,18 +57,30 @@ namespace edu.ksu.cis.masaaki
             
             while (true)
             {
-               
+
                 try
                 { // to capture an exception from SelectedIndex/SelectedItem of listCustomersDialog
                     listCustomersDialog.ClearDisplayItems();
-                    listCustomersDialog.AddDisplayItems(null); // null is a dummy argument
+                    //listCustomersDialog.AddDisplayItems(null); // null is a dummy argument
+
+                    foreach (Customer cust in BookShopControl.listOfCustomers) //print all the customers
+                    {
+                        listCustomersDialog.AddDisplayItems(cust.ToString());
+                    }
                     if (listCustomersDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
-                   
+                    customerDialog.FirstName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].firstName;
+                    customerDialog.LastName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].lastName;
+                    customerDialog.UserName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].userName;
+                    customerDialog.Password = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].password;
+                    customerDialog.EMailAddress = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].email;
+                    customerDialog.Address = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].address;
+                    customerDialog.TelephoneNumber = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].phoneNumber;
 
                     if (customerDialog.Display() == DialogReturn.Cancel) continue;
                     // XXX Edit Done button is pressed
-                    
+                    BookShopControl.editCurrentCustomer(customerDialog.FirstName, customerDialog.LastName,
+                                customerDialog.UserName, customerDialog.Password, customerDialog.EMailAddress, customerDialog.Address, customerDialog.TelephoneNumber);
                 }
                 catch (BookShopException bsex)
                 {
@@ -89,7 +101,7 @@ namespace edu.ksu.cis.masaaki
                     bookDialog.ClearDisplayItems();
                     if (bookDialog.ShowDialog() == DialogResult.Cancel) return;
                     // Edit Done button is pressed
-
+                    BookShopControl.addNewBook(bookDialog.BookTitle, bookDialog.Author, bookDialog.Publisher, bookDialog.ISBN, bookDialog.Price, bookDialog.Date, bookDialog.Stock);
                     return;
                 }
                 catch (BookShopException bsex)
@@ -110,9 +122,15 @@ namespace edu.ksu.cis.masaaki
                 try
                 {   // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
                     listBooksDialog.ClearDisplayItems();
-                    listBooksDialog.AddDisplayItems(null); //null is a dummy argument
+                    //listBooksDialog.AddDisplayItems(null); //null is a dummy argument
+
+                    foreach (Book displayBook in BookShopControl.listOfBooks)
+                    {
+                        listBooksDialog.AddDisplayItems(displayBook.ToString());
+                    }
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
+                    BookShopControl.editBookStaffView(ref bookDialog, ref listBooksDialog);
 
                     while (true)
                     {
@@ -121,7 +139,7 @@ namespace edu.ksu.cis.masaaki
                         { // to capture an exception from Price/Stock of bookDialog
                             if (bookDialog.Display() == DialogReturn.Cancel) break;
                             // XXX
-
+                            BookShopControl.updateBookInformationStaff(ref bookDialog, ref listBooksDialog);
                             break;
                         }
                         catch (BookShopException bsex)

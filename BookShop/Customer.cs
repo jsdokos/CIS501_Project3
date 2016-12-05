@@ -78,7 +78,14 @@ namespace edu.ksu.cis.masaaki
             wishList.Remove(bookToRemove);
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
 
+            sb.Append(firstName + " " + lastName + " " + email + " " + address + " " + phoneNumber);
+
+            return sb.ToString();
+        }
     }   
 
 }

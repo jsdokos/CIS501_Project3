@@ -128,12 +128,12 @@ namespace edu.ksu.cis.masaaki
                                     break;
                                 case "CheckOut":
                                     // XXX check out the current customer's cart
-                                    //TODO THIS
+                                    ControlShop.checkOutCustomer(); //TODO make sure this works
                                     break;
                                 case "ProcessPendingTransaction":
                                     // XXX use words[1] (index of the pending transactions) to identify the pending
                                     // transaction to approve
-                                    //TODO THIS
+                                    //TODO this
                                     break;
                                 default:
                                     MessageBox.Show(this, "Unknown Operation : " + words[0]);

@@ -134,7 +134,7 @@ namespace edu.ksu.cis.masaaki
         private void bnEditSelfInfo_Click(object sender, EventArgs e)
         {
             // XXX Edit Self Info button event handler
-            BookShopControl.editCustomerInformation(ref customerDialog);
+            BookShopControl.editCustomerInformation(ref customerDialog); //TODO name confusing need to change
             //if (customerDialog.Display() == DialogReturn.Cancel) return;
             // XXX Done button is pressed
             //if (customerDialog.Display() == DialogReturn.Done)
@@ -176,6 +176,7 @@ namespace edu.ksu.cis.masaaki
                 try
                 {
                     // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
+                    //TODO add in error checking for if they don't select the apprioate button
                     listBooksDialog.ClearDisplayItems();
                     // XXX null is a dummy argument
 
