@@ -336,12 +336,17 @@ namespace edu.ksu.cis.masaaki
             // XXX Transaction History button handler
             while (true)
             {
-                if (BookShopControl.LoggedinCustomer.pastTransactions.Count <= 0)
-                {
-                    throw new NullReferenceException("There are no past transactions.");
-                }
+
                 try
                 {
+                    if (!BookShopControl.isCustomerLoggedIn)
+                    {
+                        throw new BookShopException("There is no customer logged in.");
+                    }
+                    if (BookShopControl.LoggedinCustomer.pastTransactions.Count <= 0)
+                    {
+                        throw new NullReferenceException("There are no past transactions.");
+                    }
                     // to capture an exception from SelectedIndex/SelectedItem of listTransactionHistoryDialog
                     listTransactionHistoryDialog.ClearDisplayItems();
                     //listTransactionHistoryDialog.AddDisplayItems(null); // null is a dummy argument
@@ -362,6 +367,8 @@ namespace edu.ksu.cis.masaaki
                 catch (BookShopException bsex)
                 {
                     MessageBox.Show(this, bsex.ErrorMessage);
+                    return;
+                    ;
                 }
                 catch (NullReferenceException nex)
                 {

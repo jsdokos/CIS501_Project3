@@ -91,18 +91,32 @@ namespace edu.ksu.cis.masaaki
             listOfCustomers.Add(new Customer(firstName, lastName, userName, password, email, address, phoneNumber));
         }
 
-        public void addNewBook(string name, string author, string publisher, string isbn, decimal price, string date,
-            int stock)
+        public void addNewBook(string name, string author, string publisher, string isbn, decimal price, string date,int stock)
         {
             try
             {
-                findBookByISBN(isbn);
-                listOfBooks.Add(new Book(name, author, publisher, isbn,  price, date, stock));
+                if (findDuplicateBook(isbn) == null)
+                    listOfBooks.Add(new Book(name, author, publisher, isbn,  price, date, stock));
+                else
+                {
+                    throw new BookShopException("A book with that ISBN has already been registered.");
+                }
             }
             catch (BookShopException bsex)
             {
-                MessageBox.Show("A book with that ISBN has already been registered.");
+                //MessageBox.Show("A book with that ISBN has already been registered.");
+                MessageBox.Show(bsex.ErrorMessage);
             }
+        }
+
+        public Book findDuplicateBook(string isbn)
+        {
+            foreach (Book bookToFind in listOfBooks)
+            {
+                if (bookToFind.isbn.Equals(isbn))
+                    return bookToFind;
+            }
+            return null;
         }
 
         public void editCustomerInformation(ref CustomerDialog customerDialog)

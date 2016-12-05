@@ -251,7 +251,7 @@ namespace edu.ksu.cis.masaaki
                     //showCompleteTransactionDialog.AddDisplayItems(null); // XXX null is a dummy argument
                     for (int i = 0; i < BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].subTransactionCount; i++)
                     {
-                        showCompleteTransactionDialog.AddDisplayItems(BookShopControl.listOfPendingTransactions[listCompleteTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
+                        showCompleteTransactionDialog.AddDisplayItems(BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
                     }
                     showCompleteTransactionDialog.AddDisplayItems("=======================================================");
                     showCompleteTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].totalPrice);
