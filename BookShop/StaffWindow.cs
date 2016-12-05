@@ -332,7 +332,7 @@ namespace edu.ksu.cis.masaaki
  
             catch (Exception ex)
             {
-                MessageBox.Show("Serialization Failed");
+                MessageBox.Show("DeSerialization Failed");
             }
         }
 
