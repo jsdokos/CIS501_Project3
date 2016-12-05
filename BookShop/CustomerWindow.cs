@@ -113,11 +113,8 @@ namespace edu.ksu.cis.masaaki
         private void bnEditSelfInfo_Click(object sender, EventArgs e)
         {
             // XXX Edit Self Info button event handler
-            BookShopControl.editCustomerInformation(ref customerDialog); //TODO name confusing need to change
-            //if (customerDialog.Display() == DialogReturn.Cancel) return;
-            // XXX Done button is pressed
-            //if (customerDialog.Display() == DialogReturn.Done)
-            //    BookShopControl.addEditedCustomer(ref customerDialog);
+            BookShopControl.populateCustomerDialog(ref customerDialog); 
+
             try
             {
                 if (BookShopControl.LoggedinCustomer != null)
@@ -143,8 +140,7 @@ namespace edu.ksu.cis.masaaki
             {
                 MessageBox.Show(this, bsex.ErrorMessage);
             }
-        }
-            
+        }         
 
         private void bnBook_Click(object sender, EventArgs e)
         {

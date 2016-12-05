@@ -119,7 +119,7 @@ namespace edu.ksu.cis.masaaki
             return null;
         }
 
-        public void editCustomerInformation(ref CustomerDialog customerDialog)
+        public void populateCustomerDialog(ref CustomerDialog customerDialog)
         {
             if (LoggedinCustomer != null)
             {
