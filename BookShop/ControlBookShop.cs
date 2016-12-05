@@ -57,32 +57,6 @@ namespace edu.ksu.cis.masaaki
             listOfBooks[list.SelectedIndex].stock = bd.Stock;
         }
 
-    public ControlBookShop(List<Customer> listOfCustomers, List<Book> listOfBooks,
-            List<Transaction> listOfPendingTransactions, List<Transaction> listOfCompleteTransactions)
-        {
-            this.listOfCustomers = listOfCustomers;
-            this.listOfBooks = listOfBooks;
-            this.listOfPendingTransactions = listOfPendingTransactions;
-            this.listOfCompleteTransactions = listOfCompleteTransactions;
-
-            //LoginDictionary.Add();
-        }
-
-        //might be able to remove
-        public void updateObject(List<Customer> listOfCustomers, List<Book> listOfBooks,
-            List<Transaction> listOfPendingTransactions, List<Transaction> listOfCompleteTransactions)
-        {
-            this.listOfCustomers = listOfCustomers;
-            this.listOfBooks = listOfBooks;
-            this.listOfPendingTransactions = listOfPendingTransactions;
-            this.listOfCompleteTransactions = listOfCompleteTransactions;
-        }
-
-        public void addCustomerTodictionary(string username, Customer cust)
-        {
-            LoginDictionary.Add(username, cust);
-        }
-
         public Customer findCustomerLogin(string user, string pass)
         {
             foreach (Customer cust in this.listOfCustomers)
@@ -143,17 +117,6 @@ namespace edu.ksu.cis.masaaki
                 customerDialog.Address = LoggedinCustomer.address;
                 customerDialog.TelephoneNumber = LoggedinCustomer.phoneNumber;
             }
-        }
-
-        public void addEditedCustomer(ref CustomerDialog customerDialog)
-        {
-            LoggedinCustomer.firstName = customerDialog.FirstName ;
-            LoggedinCustomer.lastName = customerDialog.LastName ;
-            LoggedinCustomer.userName = customerDialog.UserName ;
-            LoggedinCustomer.phoneNumber = customerDialog.Password ;
-            customerDialog.EMailAddress = LoggedinCustomer.email;
-            LoggedinCustomer.address = customerDialog.Address;
-            LoggedinCustomer.phoneNumber = customerDialog.TelephoneNumber;
         }
 
         public void editCurrentCustomer(string firstName, string lastName, string userName, string password, string email, string address,
@@ -237,20 +200,8 @@ namespace edu.ksu.cis.masaaki
             throw new BookShopException("Unable to find that book.");
         }
 
-        public string findISBNbyBook(Book bookToFind)
-        {
-            return "poop";
-        }
         public void updateBookInformationDialog(ref BookInformationDialog infoDialog, ref ListBooksDialog listDialog)
         {
-            //bookInformationDialog.BookTitle = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].name;
-            //bookInformationDialog.Author = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].author;
-            //bookInformationDialog.Publisher = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].publisher;
-            //bookInformationDialog.ISBN = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].isbn;
-            //bookInformationDialog.Date = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].date;
-            //bookInformationDialog.Price = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].price;
-            //bookInformationDialog.Stock = BookShopControl.listOfBooks[listBooksDialog.SelectedIndex].stock;
-
             infoDialog.BookTitle = listOfBooks[listDialog.SelectedIndex].name;
             infoDialog.Author = listOfBooks[listDialog.SelectedIndex].author;
             infoDialog.Publisher = listOfBooks[listDialog.SelectedIndex].publisher;
@@ -262,23 +213,6 @@ namespace edu.ksu.cis.masaaki
 
         public void showCartInformation(ref CartDialog cart)
         {
-            //if (!BookShopControl.isCustomerLoggedIn)
-            //{
-            //    throw new BookShopException("You are not logged in.");
-            //}
-            //if (BookShopControl.LoggedinCustomer.currentCart.subTransactionCount <= 0)
-            //{
-            //    throw new BookShopException("There are no items in your cart.");
-            //}
-            //for (int i = 0; i < BookShopControl.LoggedinCustomer.currentCart.subTransactionCount; i++)
-            //{
-            //    cartDialog.AddDisplayItems("\"" + BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.name + "\" BY " +
-            //        BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.author + " " + BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].numberPurchased + "   $"
-            //        + BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[i].subTransactionPrice);
-            //}
-            //cartDialog.AddDisplayItems("=======================================================");
-            //cartDialog.AddDisplayItems("Total Price : " + BookShopControl.LoggedinCustomer.currentCart.totalPrice);
-
             if (!isCustomerLoggedIn)
             {
                 throw new NullReferenceException("You are not logged in.");

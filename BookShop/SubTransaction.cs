@@ -24,20 +24,6 @@ namespace edu.ksu.cis.masaaki
             get { return purchaseBook.price*numberPurchased; }
         }
 
-        //public override bool Equals(Object obj)
-        //{
-        //    if (obj == null || GetType() != obj.GetType())
-        //        return false;
-
-        //    SubTransaction sub = (SubTransaction) obj;
-
-        //    if (this.purchaseBook.isbn.Equals(sub.purchaseBook.isbn))
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-        //}
-
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

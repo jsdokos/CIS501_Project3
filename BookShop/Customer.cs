@@ -39,17 +39,6 @@ namespace edu.ksu.cis.masaaki
             wishList = new List<Book>();
         }
 
-        public Customer(string firstName, string lastName)
-        {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.userName = "jsdokos";
-            this.password = "jd";
-            this.email = "jsdokos@dokos.net";
-            this.address = "123 Fake street, olathe ks";
-            this.phoneNumber = "9138290400";
-        }
-
         public void addBookToCart(Book bookToAdd)
         {
             currentCart.addNewSubTransaction(bookToAdd, 1);

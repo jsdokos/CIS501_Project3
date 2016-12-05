@@ -13,12 +13,6 @@ namespace edu.ksu.cis.masaaki
         public Customer customerName;
         public decimal totalPrice;
 
-        public Transaction(Customer cust, Book bookToAdd)
-        {
-            customerName = cust;
-            addNewSubTransaction(bookToAdd, 1);
-        }
-
         public Transaction(Customer cust)
         {
             customerName = cust;
@@ -93,7 +87,6 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        //might not be used
         public void removeSubTransaction(string isbn, int numberToRemove)
         {
             SubTransaction temp = null;
@@ -117,18 +110,6 @@ namespace edu.ksu.cis.masaaki
                     }
                 }
             }
-        }
-
-        public Book findBookByISBN(string isbn)
-        {
-            foreach (SubTransaction sub in itemsPurchased)
-            {
-                if (sub.purchaseBook.isbn == isbn)
-                {
-                    return sub.purchaseBook;
-                }
-            }
-            throw new BookShopException("Unable to find the book you want to remove. Please try again.");
         }
     }
 }
