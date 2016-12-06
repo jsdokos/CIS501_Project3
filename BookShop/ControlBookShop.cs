@@ -119,6 +119,26 @@ namespace edu.ksu.cis.masaaki
             return null;
         }
 
+        public void printBookToObject(object obj)
+        {
+            if (obj is ListBooksDialog)
+            {
+                ListBooksDialog lbd = (ListBooksDialog) obj;
+                foreach (Book displayBook in listOfBooks)
+                {
+                    lbd.AddDisplayItems(displayBook.ToString());
+                }
+            }
+            if (obj is WishListDialog)
+            {
+                foreach (Book displayBook in LoggedinCustomer.wishList)
+                {
+                    WishListDialog wld = (WishListDialog) obj;
+                    wld.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
+                }
+            }
+        }
+
         public void populateCustomerDialog(ref CustomerDialog customerDialog)
         {
             if (LoggedinCustomer != null)
@@ -145,7 +165,7 @@ namespace edu.ksu.cis.masaaki
             LoggedinCustomer.phoneNumber = phoneNumber;
         }
 
-        public void findDuplicateCustomers(string userName)
+        public void findDuplicateCustomers(string userName) //TODO switch over to list.contains?
         {
             foreach (Customer cust in listOfCustomers)
             {
@@ -223,6 +243,17 @@ namespace edu.ksu.cis.masaaki
             infoDialog.Date = listOfBooks[listDialog.SelectedIndex].date;
             infoDialog.Price = listOfBooks[listDialog.SelectedIndex].price;
             infoDialog.Stock = listOfBooks[listDialog.SelectedIndex].stock;
+        }
+
+        public void updateWishListDialog(BookInWishListDialog bws, WishListDialog wishListDialog)
+        {
+            bws.BookTitle = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].name;
+            bws.Author = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].author;
+            bws.Publisher = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].publisher;
+            bws.ISBN = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn;
+            bws.Date = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].date;
+            bws.Price = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].price;
+            bws.Stock = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].stock;
         }
 
         public void showCartInformation(ref CartDialog cart)

@@ -22,6 +22,11 @@ namespace edu.ksu.cis.masaaki
 
         public List<Book> wishList;
 
+        public int howManyItemsOnWishList
+        {
+            get { return wishList.Count;  }
+        }
+
         public Customer(string firstName, string lastName, string userName, string password, string email,
             string address, string phoneNumber)
         {

@@ -151,14 +151,14 @@ namespace edu.ksu.cis.masaaki
                 try
                 {
                     // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
-                    //TODO add in error checking for if they don't select the apprioate button
                     listBooksDialog.ClearDisplayItems();
                     // XXX null is a dummy argument
 
-                    foreach (Book displayBook in BookShopControl.listOfBooks)
-                    {
-                        listBooksDialog.AddDisplayItems(displayBook.ToString());
-                    }
+                    //foreach (Book displayBook in BookShopControl.listOfBooks)
+                    //{
+                    //    listBooksDialog.AddDisplayItems(displayBook.ToString());
+                    //}
+                    BookShopControl.printBookToObject((object) listBooksDialog);
 
                     //listBooksDialog.AddDisplayItems(BookShopControl.listOfBooks.ToArray().ToString());
 
@@ -208,27 +208,29 @@ namespace edu.ksu.cis.masaaki
                     {
                         throw new BookShopException("You are not logged in.");
                     }
-                    if (BookShopControl.LoggedinCustomer.wishList.Count <= 0)
+                    if (BookShopControl.LoggedinCustomer.howManyItemsOnWishList <= 0)
                     {
                         throw new BookShopException("There are no items on your wishlist.");
                     }
-                    foreach (Book displayBook in BookShopControl.LoggedinCustomer.wishList)
-                    {
-                        wishListDialog.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
-                    }
+                    //foreach (Book displayBook in BookShopControl.LoggedinCustomer.wishList) //TODO maybe change this back and in displaybook
+                    //{
+                    //    wishListDialog.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
+                    //}
+                    BookShopControl.printBookToObject(wishListDialog);
 
                     if (wishListDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
                     //XXX 
                     //BookShopControl.updateBookInformationDialog(ref bookInformationDialog, ref listBooksDialog);
                     //TODO move into it's own method
-                    bookInWishListDialog.BookTitle = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].name;
-                    bookInWishListDialog.Author = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].author;
-                    bookInWishListDialog.Publisher = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].publisher;
-                    bookInWishListDialog.ISBN = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn;
-                    bookInWishListDialog.Date = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].date;
-                    bookInWishListDialog.Price = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].price;
-                    bookInWishListDialog.Stock = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].stock;
+                    //bookInWishListDialog.BookTitle = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].name;
+                    //bookInWishListDialog.Author = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].author;
+                    //bookInWishListDialog.Publisher = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].publisher;
+                    //bookInWishListDialog.ISBN = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn;
+                    //bookInWishListDialog.Date = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].date;
+                    //bookInWishListDialog.Price = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].price;
+                    //bookInWishListDialog.Stock = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].stock;
+                    BookShopControl.updateWishListDialog(bookInWishListDialog, wishListDialog);
 
                     switch (bookInWishListDialog.Display())
                     {
