@@ -141,9 +141,9 @@ namespace edu.ksu.cis.masaaki
             }
             if (obj is WishListDialog)
             {
+                WishListDialog wld = (WishListDialog)obj;
                 foreach (Book displayBook in LoggedinCustomer.wishList)
                 {
-                    WishListDialog wld = (WishListDialog) obj;
                     wld.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
                 }
             }
@@ -175,7 +175,7 @@ namespace edu.ksu.cis.masaaki
             LoggedinCustomer.phoneNumber = phoneNumber;
         }
 
-        public void findDuplicateCustomers(string userName) //TODO switch over to list.contains?
+        public void findDuplicateCustomers(string userName) 
         {
             foreach (Customer cust in listOfCustomers)
             {
@@ -289,10 +289,7 @@ namespace edu.ksu.cis.masaaki
             }
             for (int i = 0; i < LoggedinCustomer.currentCart.subTransactionCount; i++)
             {
-                //TODO move to subtransaction ToString
-                cart.AddDisplayItems("\"" + LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.name + "\" BY " +
-                   LoggedinCustomer.currentCart.itemsPurchased[i].purchaseBook.author + " " + LoggedinCustomer.currentCart.itemsPurchased[i].numberPurchased + "   $"
-                    + LoggedinCustomer.currentCart.itemsPurchased[i].subTransactionPrice);
+                cart.AddDisplayItems("\"" + LoggedinCustomer.currentCart.itemsPurchased[i].ToString());               
             }
             cart.AddDisplayItems("=======================================================");
             cart.AddDisplayItems("Total Price : $" + LoggedinCustomer.currentCart.totalPrice);
@@ -315,10 +312,6 @@ namespace edu.ksu.cis.masaaki
 
         public void listTransactionDetails(SelectDialog cart, Transaction tran)
         {
-            if (!isCustomerLoggedIn)
-            {
-                throw new NullReferenceException("You are not logged in.");
-            }
 
             for (int i = 0; i < tran.subTransactionCount; i++)
             {
@@ -361,6 +354,8 @@ namespace edu.ksu.cis.masaaki
             using (Stream fs = File.Open(fileName, FileMode.Create))
             {
                 BinaryFormatter fo = new BinaryFormatter();
+                //Tuple<List<Customer>, List<Book>, List<Transaction>, List<Transaction>> tupleToSerialize = 
+                //    new Tuple<List<Customer>, List<Book>, List<Transaction>, List<Transaction>>(listOfCustomers, listOfBooks, listOfPendingTransactions, listOfCompleteTransactions);
                 fo.Serialize(fs, listOfCustomers);
                 fo.Serialize(fs, listOfBooks);
 
@@ -374,6 +369,9 @@ namespace edu.ksu.cis.masaaki
             using (Stream fs = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.Read))
             {
                 BinaryFormatter fo = new BinaryFormatter();
+                //Tuple<List<Customer>, List<Book>, List<Transaction>, List<Transaction>> tupleToDeserialize =
+                //    (Tuple<List<Customer>, List<Book>, List<Transaction>, List<Transaction>>) fo.Deserialize(fs);
+
                 listOfCustomers = (List<Customer>)fo.Deserialize(fs);
                 listOfBooks = (List<Book>)fo.Deserialize(fs);
 
