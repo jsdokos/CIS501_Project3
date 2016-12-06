@@ -129,23 +129,19 @@ namespace edu.ksu.cis.masaaki
             return null;
         }
 
-        public void printBookToObject(object obj)
+        public void printBookToBookdialog(ListBooksDialog lbd)
         {
-            if (obj is ListBooksDialog)
+            foreach (Book displayBook in listOfBooks)
             {
-                ListBooksDialog lbd = (ListBooksDialog) obj;
-                foreach (Book displayBook in listOfBooks)
-                {
-                    lbd.AddDisplayItems(displayBook.ToString());
-                }
+                lbd.AddDisplayItems(displayBook.ToString());
             }
-            if (obj is WishListDialog)
+        }
+
+        public void updateWishListDialog(WishListDialog wld)
+        {
+            foreach (Book displayBook in LoggedinCustomer.wishList)
             {
-                WishListDialog wld = (WishListDialog)obj;
-                foreach (Book displayBook in LoggedinCustomer.wishList)
-                {
-                    wld.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
-                }
+                wld.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
             }
         }
 

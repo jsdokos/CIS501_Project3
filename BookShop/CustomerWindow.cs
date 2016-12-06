@@ -154,11 +154,7 @@ namespace edu.ksu.cis.masaaki
                     listBooksDialog.ClearDisplayItems();
                     // XXX null is a dummy argument
 
-                    //foreach (Book displayBook in BookShopControl.listOfBooks)
-                    //{
-                    //    listBooksDialog.AddDisplayItems(displayBook.ToString());
-                    //}
-                    BookShopControl.printBookToObject((object) listBooksDialog);
+                    BookShopControl.printBookToBookdialog(listBooksDialog);
 
                     //listBooksDialog.AddDisplayItems(BookShopControl.listOfBooks.ToArray().ToString());
 
@@ -213,24 +209,12 @@ namespace edu.ksu.cis.masaaki
                     {
                         throw new BookShopException("There are no items on your wishlist.");
                     }
-                    //foreach (Book displayBook in BookShopControl.LoggedinCustomer.wishList) //TODO maybe change this back and in displaybook
-                    //{
-                    //    wishListDialog.AddDisplayItems("\"" + displayBook.name + "\" BY " + displayBook.author);
-                    //}
-                    BookShopControl.printBookToObject(wishListDialog);
+
+                    BookShopControl.updateWishListDialog(wishListDialog);
 
                     if (wishListDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
                     //XXX 
-                    //BookShopControl.updateBookInformationDialog(ref bookInformationDialog, ref listBooksDialog);
-                    //TODO move into it's own method
-                    //bookInWishListDialog.BookTitle = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].name;
-                    //bookInWishListDialog.Author = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].author;
-                    //bookInWishListDialog.Publisher = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].publisher;
-                    //bookInWishListDialog.ISBN = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn;
-                    //bookInWishListDialog.Date = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].date;
-                    //bookInWishListDialog.Price = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].price;
-                    //bookInWishListDialog.Stock = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].stock;
                     BookShopControl.updateWishListDialog(bookInWishListDialog, wishListDialog);
 
                     switch (bookInWishListDialog.Display())
@@ -238,8 +222,6 @@ namespace edu.ksu.cis.masaaki
                         case DialogReturn.AddToCart:
                             // XXX 
                             BookShopControl.addBookToCustomerCart(BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn);
-                            //Book temp = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex];
-                            //bookInWishListDialog.Stock = temp.stock;
                             continue;
                         case DialogReturn.Remove:
                             // XXX

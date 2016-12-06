@@ -72,13 +72,6 @@ namespace edu.ksu.cis.masaaki
                     }
                     if (listCustomersDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
-                    //customerDialog.FirstName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].firstName;
-                    //customerDialog.LastName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].lastName;
-                    //customerDialog.UserName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].userName;
-                    //customerDialog.Password = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].password;
-                    //customerDialog.EMailAddress = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].email;
-                    //customerDialog.Address = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].address;
-                    //customerDialog.TelephoneNumber = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].phoneNumber;
                     BookShopControl.updateCustomerDialog(customerDialog, listCustomersDialog);
 
                     if (customerDialog.Display() == DialogReturn.Cancel) continue;
@@ -127,11 +120,7 @@ namespace edu.ksu.cis.masaaki
                     listBooksDialog.ClearDisplayItems();
                     //listBooksDialog.AddDisplayItems(null); //null is a dummy argument
 
-                    //foreach (Book displayBook in BookShopControl.listOfBooks)
-                    //{
-                    //    listBooksDialog.AddDisplayItems(displayBook.ToString());
-                    //}
-                    BookShopControl.printBookToObject(listBooksDialog);
+                    BookShopControl.printBookToBookdialog(listBooksDialog);
 
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
@@ -185,14 +174,6 @@ namespace edu.ksu.cis.masaaki
                         {  // to capture an exception from SelectedItem/SelectedTransaction of showPendingTransactionDialog
                             showPendingTransactionDialog.ClearDisplayItems();
                             //showPendingTransactionDialog.AddDisplayItems(null); // null is a dummy argument
-
-                            //TODO change this into a new method?
-                            //for (int i = 0; i < BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].subTransactionCount; i++)
-                            //{
-                            //    showPendingTransactionDialog.AddDisplayItems(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
-                            //}
-                            //showPendingTransactionDialog.AddDisplayItems("=======================================================");
-                            //showPendingTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].totalPrice);
 
                             BookShopControl.listTransactionDetails((SelectDialog)showPendingTransactionDialog, BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex]);
 
@@ -252,13 +233,6 @@ namespace edu.ksu.cis.masaaki
                     showCompleteTransactionDialog.ClearDisplayItems();
                     //showCompleteTransactionDialog.AddDisplayItems(null); // XXX null is a dummy argument
 
-                    //for (int i = 0; i < BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].subTransactionCount; i++)
-                    //{
-                    //    showCompleteTransactionDialog.AddDisplayItems(BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
-                    //}
-                    //showCompleteTransactionDialog.AddDisplayItems("=======================================================");
-                    //showCompleteTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].totalPrice);
-
                     //moved it into it's own method but casted it to it's base class so i can use it for pending and complete
                     BookShopControl.listTransactionDetails((SelectDialog) showCompleteTransactionDialog, BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex]);
 
@@ -291,16 +265,6 @@ namespace edu.ksu.cis.masaaki
                 saveFileDialog.InitialDirectory = Application.StartupPath;
                 if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
-                
-                //using (Stream fs = File.Open(saveFileDialog.FileName, FileMode.Create))
-                //{
-                //    BinaryFormatter fo = new BinaryFormatter();
-                //    fo.Serialize(fs, BookShopControl.listOfCustomers);
-                //    fo.Serialize(fs, BookShopControl.listOfBooks);
-
-                //    fo.Serialize(fs, BookShopControl.listOfPendingTransactions);
-                //    fo.Serialize(fs, BookShopControl.listOfCompleteTransactions);
-                //}
                 BookShopControl.serializeData(saveFileDialog.FileName);
             }
             catch (Exception ex)
@@ -320,15 +284,6 @@ namespace edu.ksu.cis.masaaki
                 if (openFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
 
-                //using (Stream fs = File.Open(openFileDialog.SafeFileName, FileMode.OpenOrCreate, FileAccess.Read))
-                //{
-                //    BinaryFormatter fo = new BinaryFormatter();
-                //    BookShopControl.listOfCustomers = (List<Customer>) fo.Deserialize(fs);
-                //    BookShopControl.listOfBooks = (List<Book>) fo.Deserialize(fs);
-
-                //    BookShopControl.listOfPendingTransactions = (List<Transaction>) fo.Deserialize(fs);
-                //    BookShopControl.listOfCompleteTransactions = (List<Transaction>) fo.Deserialize(fs);
-                //}
                 BookShopControl.deSerializeData(openFileDialog.SafeFileName);
             }
  
