@@ -164,6 +164,7 @@ namespace edu.ksu.cis.masaaki
 
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
+
                     BookShopControl.updateBookInformationDialog(ref bookInformationDialog, ref listBooksDialog);
 
                     switch (bookInformationDialog.Display())

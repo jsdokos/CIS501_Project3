@@ -27,7 +27,7 @@ namespace edu.ksu.cis.masaaki
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("\"" + purchaseBook.name + "\" BY " + purchaseBook.author + " " + numberPurchased + "   $ " + (purchaseBook.price * numberPurchased));
+            sb.Append("\"" + purchaseBook.name + "\" BY " + purchaseBook.author + " " + numberPurchased + "   $ " + subTransactionPrice);
 
             return sb.ToString();
         }

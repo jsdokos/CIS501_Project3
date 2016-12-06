@@ -244,7 +244,6 @@ namespace edu.ksu.cis.masaaki
 
                     foreach (Transaction tran in BookShopControl.listOfCompleteTransactions)
                     {
-                        //TODO move into new method
                         listCompleteTransactionsDialog.AddDisplayItems(tran.customerName.userName + " : " + tran.ToString());
                     }
                     if (listCompleteTransactionsDialog.Display() == DialogReturn.Done) return;

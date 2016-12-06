@@ -25,10 +25,6 @@ namespace edu.ksu.cis.masaaki
             get { return itemsPurchased.Count; }
         }
 
-        public void addBook(Book bookToAdd)
-        {
-            itemsPurchased.Add(new SubTransaction(bookToAdd, 1));
-        }
 
         public void addNewSubTransaction(Book bookToAdd, int numberToAdd)
         {

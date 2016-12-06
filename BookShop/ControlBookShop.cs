@@ -15,7 +15,7 @@ namespace edu.ksu.cis.masaaki
         public List<Book> listOfBooks;
         public List<Transaction> listOfPendingTransactions;
         public List<Transaction> listOfCompleteTransactions;
-        public Dictionary<string, Customer> LoginDictionary = new Dictionary<string, Customer>();
+
         public Customer LoggedinCustomer = null;
 
         public ControlBookShop()
@@ -95,9 +95,7 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        public void addNewCustomer(string firstName, string lastName, string userName, string password, string email,
-            string address,
-            string phoneNumber)
+        public void addNewCustomer(string firstName, string lastName, string userName, string password, string email, string address, string phoneNumber)
         {
             findDuplicateCustomers(userName);
             listOfCustomers.Add(new Customer(firstName, lastName, userName, password, email, address, phoneNumber));
@@ -309,9 +307,7 @@ namespace edu.ksu.cis.masaaki
 
             for (int i = 0; i < tran.subTransactionCount; i++)
             {
-                cart.AddDisplayItems("\"" + tran.itemsPurchased[i].purchaseBook.name + "\" BY " +
-                   tran.itemsPurchased[i].purchaseBook.author + " " + tran.itemsPurchased[i].numberPurchased + "   $"
-                    + tran.itemsPurchased[i].subTransactionPrice);
+                cart.AddDisplayItems(tran.itemsPurchased[i].ToString());
             }
             cart.AddDisplayItems("=======================================================");
             cart.AddDisplayItems("Total Price : $" + tran.totalPrice);
