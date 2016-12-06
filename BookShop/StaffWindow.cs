@@ -72,13 +72,14 @@ namespace edu.ksu.cis.masaaki
                     }
                     if (listCustomersDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
-                    customerDialog.FirstName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].firstName;
-                    customerDialog.LastName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].lastName;
-                    customerDialog.UserName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].userName;
-                    customerDialog.Password = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].password;
-                    customerDialog.EMailAddress = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].email;
-                    customerDialog.Address = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].address;
-                    customerDialog.TelephoneNumber = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].phoneNumber;
+                    //customerDialog.FirstName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].firstName;
+                    //customerDialog.LastName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].lastName;
+                    //customerDialog.UserName = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].userName;
+                    //customerDialog.Password = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].password;
+                    //customerDialog.EMailAddress = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].email;
+                    //customerDialog.Address = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].address;
+                    //customerDialog.TelephoneNumber = BookShopControl.listOfCustomers[listCustomersDialog.SelectedIndex].phoneNumber;
+                    BookShopControl.updateCustomerDialog(customerDialog, listCustomersDialog);
 
                     if (customerDialog.Display() == DialogReturn.Cancel) continue;
                     // XXX Edit Done button is pressed

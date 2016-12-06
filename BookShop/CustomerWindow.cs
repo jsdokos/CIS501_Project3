@@ -237,8 +237,8 @@ namespace edu.ksu.cis.masaaki
                         case DialogReturn.AddToCart:
                             // XXX 
                             BookShopControl.addBookToCustomerCart(BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex].isbn);
-                            Book temp = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex];
-                            bookInWishListDialog.Stock = temp.stock;
+                            //Book temp = BookShopControl.LoggedinCustomer.wishList[wishListDialog.SelectedIndex];
+                            //bookInWishListDialog.Stock = temp.stock;
                             continue;
                         case DialogReturn.Remove:
                             // XXX
@@ -272,7 +272,6 @@ namespace edu.ksu.cis.masaaki
                     cartDialog.ClearDisplayItems();
                     //cartDialog.AddDisplayItems(null); // null is a dummy argument
 
-                    //HERE
                     BookShopControl.showCartInformation(ref cartDialog);
                     switch (cartDialog.Display())
                     {
@@ -282,7 +281,6 @@ namespace edu.ksu.cis.masaaki
                             return;
                         case DialogReturn.ReturnBook: // remove a book
                             // XXX
-                            //BookShopControl.removeBookFromCustomerCart(); TODO implement this
                             BookShopControl.removeBookFromCustomerCart(BookShopControl.LoggedinCustomer.currentCart.itemsPurchased[cartDialog.SelectedIndex].purchaseBook.isbn);
                             continue;
 
@@ -297,7 +295,6 @@ namespace edu.ksu.cis.masaaki
                 }
                 catch (NullReferenceException nex)
                 {
-                    //throw new BookShopException("There are no items on your wishlist.");
                     MessageBox.Show(this, nex.Message);
                     return;
                 }

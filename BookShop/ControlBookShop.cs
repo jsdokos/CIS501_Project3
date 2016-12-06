@@ -256,6 +256,17 @@ namespace edu.ksu.cis.masaaki
             bws.Stock = LoggedinCustomer.wishList[wishListDialog.SelectedIndex].stock;
         }
 
+        public void updateCustomerDialog(CustomerDialog cd, ListCustomersDialog lcd)
+        {
+            cd.FirstName = listOfCustomers[lcd.SelectedIndex].firstName;
+            cd.LastName = listOfCustomers[lcd.SelectedIndex].lastName;
+            cd.UserName = listOfCustomers[lcd.SelectedIndex].userName;
+            cd.Password = listOfCustomers[lcd.SelectedIndex].password;
+            cd.EMailAddress = listOfCustomers[lcd.SelectedIndex].email;
+            cd.Address = listOfCustomers[lcd.SelectedIndex].address;
+            cd.TelephoneNumber = listOfCustomers[lcd.SelectedIndex].phoneNumber;
+        }
+
         public void showCartInformation(ref CartDialog cart)
         {
             if (!isCustomerLoggedIn)
