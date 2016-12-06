@@ -35,6 +35,16 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
+        public int amountOfPendingTransactions
+        {
+            get { return listOfPendingTransactions.Count; }
+        }
+
+        public int amountOfCompleteTransactions
+        {
+            get { return listOfCompleteTransactions.Count; }
+        }
+
         public void editBookStaffView(ref BookDialog dia, ref ListBooksDialog list)
         {
             dia.BookTitle = listOfBooks[list.SelectedIndex].name;
@@ -285,7 +295,7 @@ namespace edu.ksu.cis.masaaki
                     + LoggedinCustomer.currentCart.itemsPurchased[i].subTransactionPrice);
             }
             cart.AddDisplayItems("=======================================================");
-            cart.AddDisplayItems("Total Price : " + LoggedinCustomer.currentCart.totalPrice);
+            cart.AddDisplayItems("Total Price : $" + LoggedinCustomer.currentCart.totalPrice);
         }
 
         public void showPastCartInformation(ref ShowTransactionDialog cart, Transaction tran)
@@ -302,8 +312,26 @@ namespace edu.ksu.cis.masaaki
                     + tran.itemsPurchased[i].subTransactionPrice);
             }
             cart.AddDisplayItems("=======================================================");
-            cart.AddDisplayItems("Total Price : " + tran.totalPrice);
+            cart.AddDisplayItems("Total Price : $" + tran.totalPrice);
         }
+
+        public void listTransactionDetails(SelectDialog cart, Transaction tran)
+        {
+            if (!isCustomerLoggedIn)
+            {
+                throw new NullReferenceException("You are not logged in.");
+            }
+
+            for (int i = 0; i < tran.subTransactionCount; i++)
+            {
+                cart.AddDisplayItems("\"" + tran.itemsPurchased[i].purchaseBook.name + "\" BY " +
+                   tran.itemsPurchased[i].purchaseBook.author + " " + tran.itemsPurchased[i].numberPurchased + "   $"
+                    + tran.itemsPurchased[i].subTransactionPrice);
+            }
+            cart.AddDisplayItems("=======================================================");
+            cart.AddDisplayItems("Total Price : $" + tran.totalPrice);
+        }
+
 
         public void checkOutCustomer()
         {

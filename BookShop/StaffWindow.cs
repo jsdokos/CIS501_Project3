@@ -121,24 +121,24 @@ namespace edu.ksu.cis.masaaki
             // XXX List Books button event handler
            
             while (true)
-            {
-            
+            {            
                 try
                 {   // to capture an exception from SelectedItem/SelectedIndex of listBooksDialog
                     listBooksDialog.ClearDisplayItems();
                     //listBooksDialog.AddDisplayItems(null); //null is a dummy argument
 
-                    foreach (Book displayBook in BookShopControl.listOfBooks)
-                    {
-                        listBooksDialog.AddDisplayItems(displayBook.ToString());
-                    }
+                    //foreach (Book displayBook in BookShopControl.listOfBooks)
+                    //{
+                    //    listBooksDialog.AddDisplayItems(displayBook.ToString());
+                    //}
+                    BookShopControl.printBookToObject(listBooksDialog);
+
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
                     BookShopControl.editBookStaffView(ref bookDialog, ref listBooksDialog);
 
                     while (true)
                     {
-  
                         try
                         { // to capture an exception from Price/Stock of bookDialog
                             if (bookDialog.Display() == DialogReturn.Cancel) break;
@@ -179,7 +179,6 @@ namespace edu.ksu.cis.masaaki
                     if (listPendingTransactionsDialog.Display() == DialogReturn.Done) return;
                     // select button is pressed
 
-                    //TODO infinite loop if no line is selected
                     while (true)
                     {
                         try
@@ -187,26 +186,28 @@ namespace edu.ksu.cis.masaaki
                             showPendingTransactionDialog.ClearDisplayItems();
                             //showPendingTransactionDialog.AddDisplayItems(null); // null is a dummy argument
 
-                            for (int i = 0; i < BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].subTransactionCount; i++)
-                            {
-                                showPendingTransactionDialog.AddDisplayItems(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
-                            }
-                            showPendingTransactionDialog.AddDisplayItems("=======================================================");
-                            showPendingTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].totalPrice);
+                            //TODO change this into a new method?
+                            //for (int i = 0; i < BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].subTransactionCount; i++)
+                            //{
+                            //    showPendingTransactionDialog.AddDisplayItems(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
+                            //}
+                            //showPendingTransactionDialog.AddDisplayItems("=======================================================");
+                            //showPendingTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].totalPrice);
+
+                            BookShopControl.listTransactionDetails((SelectDialog)showPendingTransactionDialog, BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex]);
 
                             switch (showPendingTransactionDialog.Display())
                             {
                                 case DialogReturn.Approve:  // Transaction Processed
                                     // XXX
                                     BookShopControl.approveTransaction(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex]);
-                                    if (BookShopControl.listOfPendingTransactions.Count <= 0)
+                                    if (BookShopControl.amountOfPendingTransactions <= 0)
                                         return;
                                     break;
                                 case DialogReturn.ReturnBook: // Return Book
                                     // XXX
                                     BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].
                                         removeSubTransaction(BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[showPendingTransactionDialog.SelectedIndex].purchaseBook.isbn, 1);
-                                    //book to remove BookShopControl.listOfPendingTransactions[listPendingTransactionsDialog.SelectedIndex].itemsPurchased[showPendingTransactionDialog.SelectedIndex]
                                     continue;
                                 case DialogReturn.Remove: // Remove transaction
                                     // XXX
@@ -240,6 +241,7 @@ namespace edu.ksu.cis.masaaki
                 { // to capture an exception from SelectedItem/SelectedIndex of listCompleteTransactionsDialog
                     listCompleteTransactionsDialog.ClearDisplayItems();
                     //listCompleteTransactionsDialog.AddDisplayItems(null); // XXX null is a dummy argument
+
                     foreach (Transaction tran in BookShopControl.listOfCompleteTransactions)
                     {
                         //TODO move into new method
@@ -250,12 +252,16 @@ namespace edu.ksu.cis.masaaki
                     
                     showCompleteTransactionDialog.ClearDisplayItems();
                     //showCompleteTransactionDialog.AddDisplayItems(null); // XXX null is a dummy argument
-                    for (int i = 0; i < BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].subTransactionCount; i++)
-                    {
-                        showCompleteTransactionDialog.AddDisplayItems(BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
-                    }
-                    showCompleteTransactionDialog.AddDisplayItems("=======================================================");
-                    showCompleteTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].totalPrice);
+
+                    //for (int i = 0; i < BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].subTransactionCount; i++)
+                    //{
+                    //    showCompleteTransactionDialog.AddDisplayItems(BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].itemsPurchased[i].ToString());
+                    //}
+                    //showCompleteTransactionDialog.AddDisplayItems("=======================================================");
+                    //showCompleteTransactionDialog.AddDisplayItems("Total Price : " + BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex].totalPrice);
+
+                    //moved it into it's own method but casted it to it's base class so i can use it for pending and complete
+                    BookShopControl.listTransactionDetails((SelectDialog) showCompleteTransactionDialog, BookShopControl.listOfCompleteTransactions[listCompleteTransactionsDialog.SelectedIndex]);
 
                     switch (showCompleteTransactionDialog.Display())
                     {
@@ -266,7 +272,6 @@ namespace edu.ksu.cis.masaaki
                         case DialogReturn.Done:
                             continue;
                     }
-
                 }
                 catch(BookShopException bsex)
                 {
@@ -288,8 +293,6 @@ namespace edu.ksu.cis.masaaki
                 if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
                 
-
-                //TODO Test this to make sure it works
                 using (Stream fs = File.Open(saveFileDialog.FileName, FileMode.Create))
                 {
                     BinaryFormatter fo = new BinaryFormatter();
@@ -316,6 +319,7 @@ namespace edu.ksu.cis.masaaki
                 openFileDialog.InitialDirectory = Application.StartupPath;
                 if (openFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
+
                 using (Stream fs = File.Open(openFileDialog.SafeFileName, FileMode.OpenOrCreate, FileAccess.Read))
                 {
                     BinaryFormatter fo = new BinaryFormatter();
