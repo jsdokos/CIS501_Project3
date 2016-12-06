@@ -47,7 +47,7 @@ namespace edu.ksu.cis.masaaki
             get { return listOfCompleteTransactions.Count; }
         }
 
-        public void editBookStaffView(ref BookDialog dia, ref ListBooksDialog list)
+        public void editBookStaffView(BookDialog dia, ListBooksDialog list)
         {
             dia.BookTitle = listOfBooks[list.SelectedIndex].name;
             dia.Author = listOfBooks[list.SelectedIndex].author;
@@ -58,7 +58,7 @@ namespace edu.ksu.cis.masaaki
             dia.Stock = listOfBooks[list.SelectedIndex].stock;
         }
 
-        public void updateBookInformationStaff(ref BookDialog bd, ref ListBooksDialog list)
+        public void updateBookInformationStaff(BookDialog bd, ListBooksDialog list)
         {
             listOfBooks[list.SelectedIndex].name = bd.BookTitle;
             listOfBooks[list.SelectedIndex].author = bd.Author;
@@ -145,7 +145,7 @@ namespace edu.ksu.cis.masaaki
             }
         }
 
-        public void populateCustomerDialog(ref CustomerDialog customerDialog)
+        public void populateCustomerDialog(CustomerDialog customerDialog)
         {
             if (LoggedinCustomer != null)
             {
@@ -240,7 +240,7 @@ namespace edu.ksu.cis.masaaki
             throw new BookShopException("Unable to find that book.");
         }
 
-        public void updateBookInformationDialog(ref BookInformationDialog infoDialog, ref ListBooksDialog listDialog)
+        public void updateBookInformationDialog(BookInformationDialog infoDialog, ListBooksDialog listDialog)
         {
             infoDialog.BookTitle = listOfBooks[listDialog.SelectedIndex].name;
             infoDialog.Author = listOfBooks[listDialog.SelectedIndex].author;
@@ -273,7 +273,7 @@ namespace edu.ksu.cis.masaaki
             cd.TelephoneNumber = listOfCustomers[lcd.SelectedIndex].phoneNumber;
         }
 
-        public void showCartInformation(ref CartDialog cart)
+        public void showCartInformation(CartDialog cart)
         {
             if (!isCustomerLoggedIn)
             {
@@ -285,13 +285,13 @@ namespace edu.ksu.cis.masaaki
             }
             for (int i = 0; i < LoggedinCustomer.currentCart.subTransactionCount; i++)
             {
-                cart.AddDisplayItems("\"" + LoggedinCustomer.currentCart.itemsPurchased[i].ToString());               
+                cart.AddDisplayItems(LoggedinCustomer.currentCart.itemsPurchased[i].ToString());               
             }
             cart.AddDisplayItems("=======================================================");
             cart.AddDisplayItems("Total Price : $" + LoggedinCustomer.currentCart.totalPrice);
         }
 
-        public void showPastCartInformation(ref ShowTransactionDialog cart, Transaction tran)
+        public void showPastCartInformation(ShowTransactionDialog cart, Transaction tran)
         {
             if (!isCustomerLoggedIn)
             {

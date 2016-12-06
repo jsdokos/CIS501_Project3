@@ -29,10 +29,10 @@ namespace edu.ksu.cis.masaaki
             // XXX You may change the contructors of StaffWindow and CustomerWindow to take
             // some arguments
             //ControlShop.listOfCustomers.Add(new Customer("Jacob", "Dokos"));
-            staffWindow = new StaffWindow(ref ControlShop);
+            staffWindow = new StaffWindow(ControlShop);
             staffWindow.StartPosition = FormStartPosition.Manual;
             staffWindow.Location = new Point(600, 100);
-            customerWindow = new CustomerWindow(ref ControlShop);
+            customerWindow = new CustomerWindow(ControlShop);
             customerWindow.StartPosition = FormStartPosition.Manual;
             customerWindow.Location = new Point(100, 100);    
         }

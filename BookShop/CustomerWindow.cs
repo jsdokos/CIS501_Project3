@@ -30,7 +30,7 @@ namespace edu.ksu.cis.masaaki
             InitializeComponent();
         }
 
-        public CustomerWindow(ref ControlBookShop BookShopControl)
+        public CustomerWindow(ControlBookShop BookShopControl)
         {
             this.BookShopControl = BookShopControl;
             InitializeComponent();
@@ -113,7 +113,7 @@ namespace edu.ksu.cis.masaaki
         private void bnEditSelfInfo_Click(object sender, EventArgs e)
         {
             // XXX Edit Self Info button event handler
-            BookShopControl.populateCustomerDialog(ref customerDialog); 
+            BookShopControl.populateCustomerDialog(customerDialog); 
 
             try
             {
@@ -161,7 +161,7 @@ namespace edu.ksu.cis.masaaki
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
 
-                    BookShopControl.updateBookInformationDialog(ref bookInformationDialog, ref listBooksDialog);
+                    BookShopControl.updateBookInformationDialog(bookInformationDialog, listBooksDialog);
 
                     switch (bookInformationDialog.Display())
                     {
@@ -255,7 +255,7 @@ namespace edu.ksu.cis.masaaki
                     cartDialog.ClearDisplayItems();
                     //cartDialog.AddDisplayItems(null); // null is a dummy argument
 
-                    BookShopControl.showCartInformation(ref cartDialog);
+                    BookShopControl.showCartInformation(cartDialog);
                     switch (cartDialog.Display())
                     {
                         case DialogReturn.CheckOut: // check out
@@ -314,7 +314,7 @@ namespace edu.ksu.cis.masaaki
 
                     showTransactionDialog.ClearDisplayItems();
                     //showTransactionDialog.AddDisplayItems(null); // null is a dummy argument
-                    BookShopControl.showPastCartInformation(ref showTransactionDialog, BookShopControl.LoggedinCustomer.pastTransactions[listTransactionHistoryDialog.SelectedIndex]);
+                    BookShopControl.showPastCartInformation(showTransactionDialog, BookShopControl.LoggedinCustomer.pastTransactions[listTransactionHistoryDialog.SelectedIndex]);
                     showTransactionDialog.ShowDialog();
                 }
                 catch (BookShopException bsex)

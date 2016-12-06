@@ -32,7 +32,7 @@ namespace edu.ksu.cis.masaaki
             InitializeComponent();
         }
 
-        public StaffWindow(ref ControlBookShop BookShopControl)
+        public StaffWindow(ControlBookShop BookShopControl)
         {
             this.BookShopControl = BookShopControl;
             InitializeComponent();
@@ -124,7 +124,7 @@ namespace edu.ksu.cis.masaaki
 
                     if (listBooksDialog.Display() == DialogReturn.Done) return;
                     // select is pressed
-                    BookShopControl.editBookStaffView(ref bookDialog, ref listBooksDialog);
+                    BookShopControl.editBookStaffView(bookDialog, listBooksDialog);
 
                     while (true)
                     {
@@ -132,7 +132,7 @@ namespace edu.ksu.cis.masaaki
                         { // to capture an exception from Price/Stock of bookDialog
                             if (bookDialog.Display() == DialogReturn.Cancel) break;
                             // XXX
-                            BookShopControl.updateBookInformationStaff(ref bookDialog, ref listBooksDialog);
+                            BookShopControl.updateBookInformationStaff(bookDialog, listBooksDialog);
                             break;
                         }
                         catch (BookShopException bsex)
