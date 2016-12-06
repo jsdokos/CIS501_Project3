@@ -293,15 +293,16 @@ namespace edu.ksu.cis.masaaki
                 if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
                 
-                using (Stream fs = File.Open(saveFileDialog.FileName, FileMode.Create))
-                {
-                    BinaryFormatter fo = new BinaryFormatter();
-                    fo.Serialize(fs, BookShopControl.listOfCustomers);
-                    fo.Serialize(fs, BookShopControl.listOfBooks);
+                //using (Stream fs = File.Open(saveFileDialog.FileName, FileMode.Create))
+                //{
+                //    BinaryFormatter fo = new BinaryFormatter();
+                //    fo.Serialize(fs, BookShopControl.listOfCustomers);
+                //    fo.Serialize(fs, BookShopControl.listOfBooks);
 
-                    fo.Serialize(fs, BookShopControl.listOfPendingTransactions);
-                    fo.Serialize(fs, BookShopControl.listOfCompleteTransactions);
-                }
+                //    fo.Serialize(fs, BookShopControl.listOfPendingTransactions);
+                //    fo.Serialize(fs, BookShopControl.listOfCompleteTransactions);
+                //}
+                BookShopControl.serializeData(saveFileDialog.FileName);
             }
             catch (Exception ex)
             {
@@ -320,19 +321,16 @@ namespace edu.ksu.cis.masaaki
                 if (openFileDialog.ShowDialog() != DialogResult.OK) return;
                 // XXX
 
-                using (Stream fs = File.Open(openFileDialog.SafeFileName, FileMode.OpenOrCreate, FileAccess.Read))
-                {
-                    BinaryFormatter fo = new BinaryFormatter();
-                    //fo.Serialize(fs, BookShopControl.listOfCustomers);
-                    //fo.Serialize(fs, BookShopControl.listOfBooks);
-                    BookShopControl.listOfCustomers = (List<Customer>) fo.Deserialize(fs);
-                    BookShopControl.listOfBooks = (List<Book>) fo.Deserialize(fs);
+                //using (Stream fs = File.Open(openFileDialog.SafeFileName, FileMode.OpenOrCreate, FileAccess.Read))
+                //{
+                //    BinaryFormatter fo = new BinaryFormatter();
+                //    BookShopControl.listOfCustomers = (List<Customer>) fo.Deserialize(fs);
+                //    BookShopControl.listOfBooks = (List<Book>) fo.Deserialize(fs);
 
-                    //fo.Serialize(fs, BookShopControl.listOfPendingTransactions);
-                    //fo.Serialize(fs, BookShopControl.listOfCompleteTransactions);
-                    BookShopControl.listOfPendingTransactions = (List<Transaction>) fo.Deserialize(fs);
-                    BookShopControl.listOfCompleteTransactions = (List<Transaction>) fo.Deserialize(fs);
-                }
+                //    BookShopControl.listOfPendingTransactions = (List<Transaction>) fo.Deserialize(fs);
+                //    BookShopControl.listOfCompleteTransactions = (List<Transaction>) fo.Deserialize(fs);
+                //}
+                BookShopControl.deSerializeData(openFileDialog.SafeFileName);
             }
  
             catch (Exception ex)

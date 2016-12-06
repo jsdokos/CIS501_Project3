@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -356,6 +358,32 @@ namespace edu.ksu.cis.masaaki
         {
             listOfCompleteTransactions.Remove(transactionTobeRemoved);
             transactionTobeRemoved.customerName.pastTransactions.Remove(transactionTobeRemoved);
+        }
+
+        public void serializeData(string fileName)
+        {
+            using (Stream fs = File.Open(fileName, FileMode.Create))
+            {
+                BinaryFormatter fo = new BinaryFormatter();
+                fo.Serialize(fs, listOfCustomers);
+                fo.Serialize(fs, listOfBooks);
+
+                fo.Serialize(fs, listOfPendingTransactions);
+                fo.Serialize(fs, listOfCompleteTransactions);
+            }
+        }
+
+        public void deSerializeData(string fileName)
+        {
+            using (Stream fs = File.Open(fileName, FileMode.OpenOrCreate, FileAccess.Read))
+            {
+                BinaryFormatter fo = new BinaryFormatter();
+                listOfCustomers = (List<Customer>)fo.Deserialize(fs);
+                listOfBooks = (List<Book>)fo.Deserialize(fs);
+
+                listOfPendingTransactions = (List<Transaction>)fo.Deserialize(fs);
+                listOfCompleteTransactions = (List<Transaction>)fo.Deserialize(fs);
+            }
         }
 
     }
